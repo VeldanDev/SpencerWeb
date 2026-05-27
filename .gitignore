@@ -1,0 +1,5 @@
+venv/ 
+dashboard/node_modules/ 
+__pycache__/ 
+*.pyc 
+reports/ 
