@@ -1,0 +1,944 @@
+{
+  "scan_info": {
+    "tool": "SpencerWeb v2.0",
+    "author": "SpencerWeb Security Audit Tool",
+    "method": "OWASP Top 10 + CVSS Scoring",
+    "timestamp": "2026-05-21T09:59:29.594785",
+    "target": "https://sipadi-teknik.polmed.ac.id",
+    "scan_duration_seconds": 399.19
+  },
+  "crawl_info": {
+    "pages_crawled": 28,
+    "forms_found": 4,
+    "urls_with_params": 11,
+    "pages_failed": 0
+  },
+  "grade": {
+    "grade": "D",
+    "score": 57,
+    "severity_count": {
+      "CRITICAL": 0,
+      "HIGH": 4,
+      "MEDIUM": 2,
+      "LOW": 7,
+      "INFO": 0
+    },
+    "summary": "4 HIGH, 2 MEDIUM, 7 LOW"
+  },
+  "modules": {
+    "headers": {
+      "findings": [
+        {
+          "check": "Strict-Transport-Security",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Ditemukan: max-age=63072000;includeSubDomains; preload",
+          "recommendation": "-"
+        },
+        {
+          "check": "Content-Security-Policy",
+          "status": "FAIL",
+          "severity": "HIGH",
+          "detail": "Mencegah XSS dan injeksi konten berbahaya",
+          "recommendation": "Tambahkan header CSP yang sesuai. Minimal: Content-Security-Policy: default-src 'self'"
+        },
+        {
+          "check": "X-Frame-Options",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Ditemukan: sameorigin",
+          "recommendation": "-"
+        },
+        {
+          "check": "X-Content-Type-Options",
+          "status": "FAIL",
+          "severity": "MEDIUM",
+          "detail": "Mencegah MIME-type sniffing",
+          "recommendation": "Tambahkan header: X-Content-Type-Options: nosniff"
+        },
+        {
+          "check": "X-XSS-Protection",
+          "status": "FAIL",
+          "severity": "LOW",
+          "detail": "Mengaktifkan filter XSS bawaan browser (legacy)",
+          "recommendation": "Tambahkan header: X-XSS-Protection: 1; mode=block (atau gunakan CSP sebagai pengganti)"
+        },
+        {
+          "check": "Referrer-Policy",
+          "status": "FAIL",
+          "severity": "LOW",
+          "detail": "Mengontrol informasi referrer yang dikirim browser",
+          "recommendation": "Tambahkan header: Referrer-Policy: strict-origin-when-cross-origin"
+        },
+        {
+          "check": "Permissions-Policy",
+          "status": "FAIL",
+          "severity": "LOW",
+          "detail": "Mengontrol akses fitur browser (kamera, mikrofon, geolokasi)",
+          "recommendation": "Tambahkan header: Permissions-Policy: geolocation=(), camera=(), microphone=()"
+        },
+        {
+          "check": "Server (Info Leak)",
+          "status": "FAIL",
+          "severity": "LOW",
+          "detail": "Terdeteksi: cloudflare — Membocorkan versi web server (misal: Apache/2.4.41)",
+          "recommendation": "Sembunyikan atau hapus header Server dari response"
+        },
+        {
+          "check": "X-Powered-By (Info Leak)",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Tidak ditemukan (bagus)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Cookie: MoodleSession",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Cookie flags aman",
+          "recommendation": "-"
+        },
+        {
+          "check": "HTTP → HTTPS Redirect",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "HTTP redirect ke HTTPS (301)",
+          "recommendation": "-"
+        }
+      ],
+      "raw_headers": {
+        "Date": "Thu, 21 May 2026 02:52:56 GMT",
+        "Content-Type": "text/html; charset=utf-8",
+        "Content-Length": "9472",
+        "Connection": "keep-alive",
+        "Server": "cloudflare",
+        "Set-Cookie": "MoodleSession=9de42f576a634e6e9a76ae2179f1238b; path=/; secure; HttpOnly, MoodleSession=990be18165174a3c5ee85a05eddfc94d; path=/; secure; HttpOnly",
+        "expires": "Mon, 20 Aug 1969 09:23:00 GMT",
+        "Cache-Control": "no-store, no-cache, must-revalidate, post-check=0, pre-check=0, no-transform",
+        "pragma": "no-cache",
+        "content-language": "id",
+        "content-script-type": "text/javascript",
+        "content-style-type": "text/css",
+        "x-ua-compatible": "IE=edge",
+        "last-modified": "Thu, 21 May 2026 02:52:56 GMT",
+        "Accept-Ranges": "none",
+        "x-frame-options": "sameorigin",
+        "vary": "Accept-Encoding",
+        "Content-Encoding": "gzip",
+        "strict-transport-security": "max-age=63072000;includeSubDomains; preload",
+        "x-served-by": "sipadi-teknik.polmed.ac.id",
+        "cf-cache-status": "DYNAMIC",
+        "Nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "Report-To": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=mIeRePsICjstfQ1c%2B0jPBjb%2Be49NQaMsIaj7Dij1lTYANsAzCMB%2BLjk5bYk50s7HQh2rIWLDNDlxLuMjXvLIGy53YG1PvykaONkOox9b7zEUCuXLwYfwDHvJf75GM7DPfmY8%2BmTWWQFfHVHt2MDhV1MDapbtaFOaNQ%3D%3D\"}]}",
+        "CF-RAY": "9ff049b7beec45dc-CGK",
+        "alt-svc": "h3=\":443\"; ma=86400"
+      },
+      "passed": 5,
+      "failed": 6
+    },
+    "ssl": {
+      "hostname": "sipadi-teknik.polmed.ac.id",
+      "tls_version": "TLSv1.3",
+      "findings": [
+        {
+          "check": "Validitas Sertifikat SSL",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Sertifikat valid dan terpercaya",
+          "recommendation": "-"
+        },
+        {
+          "check": "Masa Berlaku Sertifikat",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Sertifikat berlaku 67 hari lagi (Jul 27 19:21:36 2026 GMT)",
+          "recommendation": "Jadwalkan pembaruan sertifikat"
+        },
+        {
+          "check": "Versi TLS",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Server menggunakan TLSv1.3",
+          "recommendation": "-"
+        },
+        {
+          "check": "Cipher Strength",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Cipher: TLS_AES_256_GCM_SHA384 (256-bit)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Certificate Issuer",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Diterbitkan oleh: Google Trust Services (WE1)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Domain Match (SAN)",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Domain 'sipadi-teknik.polmed.ac.id' tercantum di SAN sertifikat",
+          "recommendation": "-"
+        }
+      ],
+      "cert_info": {
+        "subject_commonName": "polmed.ac.id",
+        "issuer_countryName": "US",
+        "issuer_organizationName": "Google Trust Services",
+        "issuer_commonName": "WE1",
+        "notBefore": "Apr 28 18:23:03 2026 GMT",
+        "notAfter": "Jul 27 19:21:36 2026 GMT",
+        "serialNumber": "DA5BCECD68E044FC0E534742B4C11258",
+        "san": [
+          "polmed.ac.id",
+          "*.polmed.ac.id"
+        ]
+      },
+      "passed": 6,
+      "failed": 0
+    },
+    "sensitive_files": {
+      "findings": [
+        {
+          "check": "File: /package.json",
+          "status": "FAIL",
+          "severity": "LOW",
+          "category": "Package Info",
+          "detail": "EXPOSED! Node.js package.json exposed — membocorkan dependensi & versi (HTTP 200, 1825 bytes)",
+          "recommendation": "Blokir akses ke package.json via web server",
+          "result_type": "exposed",
+          "_content_length": 1825
+        },
+        {
+          "check": "File: /composer.json",
+          "status": "FAIL",
+          "severity": "LOW",
+          "category": "Package Info",
+          "detail": "EXPOSED! PHP Composer config exposed — membocorkan dependensi (HTTP 200, 2094 bytes)",
+          "recommendation": "Blokir akses ke composer.json",
+          "result_type": "exposed",
+          "_content_length": 2094
+        },
+        {
+          "check": "File: /.htaccess",
+          "status": "PASS",
+          "severity": "INFO",
+          "category": "Server Config",
+          "detail": "File ada tapi akses diblokir (HTTP 403) — server melindungi dengan benar",
+          "recommendation": "-",
+          "result_type": "protected"
+        },
+        {
+          "check": "File: /wp-config.php",
+          "status": "PASS",
+          "severity": "INFO",
+          "category": "CMS Config",
+          "detail": "File ada tapi akses diblokir (HTTP 403) — server melindungi dengan benar",
+          "recommendation": "-",
+          "result_type": "protected"
+        },
+        {
+          "check": "File: /wp-config.php.bak",
+          "status": "PASS",
+          "severity": "INFO",
+          "category": "CMS Config",
+          "detail": "File ada tapi akses diblokir (HTTP 403) — server melindungi dengan benar",
+          "recommendation": "-",
+          "result_type": "protected"
+        },
+        {
+          "check": "File: /wp-config.php~",
+          "status": "PASS",
+          "severity": "INFO",
+          "category": "CMS Config",
+          "detail": "File ada tapi akses diblokir (HTTP 403) — server melindungi dengan benar",
+          "recommendation": "-",
+          "result_type": "protected"
+        },
+        {
+          "check": "File: /server-status",
+          "status": "PASS",
+          "severity": "INFO",
+          "category": "Info Disclosure",
+          "detail": "File ada tapi akses diblokir (HTTP 403) — server melindungi dengan benar",
+          "recommendation": "-",
+          "result_type": "protected"
+        }
+      ],
+      "total_paths_checked": 35,
+      "passed": 33,
+      "failed": 2
+    },
+    "cms": {
+      "cms": null,
+      "version": null,
+      "findings": [
+        {
+          "check": "CMS Detection",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Tidak ada CMS populer terdeteksi (custom-built atau non-standard CMS)",
+          "recommendation": "-"
+        }
+      ],
+      "passed": 1,
+      "failed": 0
+    },
+    "sqli_advanced": {
+      "findings": [
+        {
+          "check": "Advanced SQL Injection Scan",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Tidak ditemukan SQLi (226 tests: 84 error-based, 80 boolean-based, 62 time-based)",
+          "recommendation": "-"
+        }
+      ],
+      "tests_performed": {
+        "error_based": 84,
+        "boolean_based": 80,
+        "time_based": 62
+      },
+      "total_tests": 226,
+      "passed": 1,
+      "failed": 0
+    },
+    "xss": {
+      "findings": [
+        {
+          "check": "Reflected XSS Scan",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Tidak ditemukan Reflected XSS di 20 halaman (457 injection points tested)",
+          "recommendation": "-"
+        }
+      ],
+      "passed": 1,
+      "failed": 0,
+      "injection_points_tested": 457
+    },
+    "stored_xss": {
+      "findings": [
+        {
+          "check": "Stored XSS Scan",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Tidak ditemukan Stored XSS (3 form disubmit, 84 page-checks dilakukan)",
+          "recommendation": "-"
+        }
+      ],
+      "forms_submitted": 3,
+      "pages_checked": 84,
+      "passed": 1,
+      "failed": 0
+    },
+    "csrf": {
+      "findings": [
+        {
+          "check": "CSRF Form Analysis",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Tidak ada form ditemukan di halaman ini",
+          "recommendation": "-"
+        },
+        {
+          "check": "CSRF: POST form → /login/index.php",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "CSRF token ditemukan: 'logintoken'",
+          "recommendation": "-"
+        },
+        {
+          "check": "CSRF: POST form → /login/index.php",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "CSRF token ditemukan: 'logintoken'",
+          "recommendation": "-"
+        },
+        {
+          "check": "CSRF: GET form → /mod/forum/discuss.php",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Form GET tanpa CSRF token (umumnya acceptable untuk form pencarian)",
+          "recommendation": "Pastikan form GET tidak melakukan perubahan data/state"
+        },
+        {
+          "check": "CSRF: GET form → /mod/forum/search.php",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Form GET tanpa CSRF token (umumnya acceptable untuk form pencarian)",
+          "recommendation": "Pastikan form GET tidak melakukan perubahan data/state"
+        },
+        {
+          "check": "CSRF Form Analysis",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Tidak ada form ditemukan di halaman ini",
+          "recommendation": "-"
+        },
+        {
+          "check": "CSRF: POST form → /login/forgot_password.php",
+          "status": "FAIL",
+          "severity": "HIGH",
+          "detail": "Form POST tanpa CSRF token — rentan terhadap CSRF attack",
+          "recommendation": "Tambahkan CSRF token (hidden input) pada setiap form POST. Gunakan framework yang mendukung CSRF protection built-in (Django, Laravel, Express csrf middleware)."
+        }
+      ],
+      "passed": 6,
+      "failed": 1,
+      "forms_analyzed": 5
+    },
+    "open_redirect": {
+      "findings": [
+        {
+          "check": "Open Redirect Scan",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Tidak ditemukan Open Redirect (680 tests pada 10 halaman)",
+          "recommendation": "-"
+        }
+      ],
+      "tests_performed": 680,
+      "passed": 1,
+      "failed": 0
+    },
+    "cors": {
+      "findings": [
+        {
+          "check": "CORS Configuration Scan",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Tidak ditemukan CORS misconfiguration (7 tests pada 6 halaman)",
+          "recommendation": "-"
+        }
+      ],
+      "tests_performed": 7,
+      "pages_checked": 6,
+      "passed": 1,
+      "failed": 0
+    },
+    "http_methods": {
+      "findings": [
+        {
+          "check": "HTTP Method: PUT",
+          "status": "FAIL",
+          "severity": "HIGH",
+          "detail": "PUT method diterima server (HTTP 200) — File upload/overwrite — attacker bisa upload webshell atau overwrite file",
+          "recommendation": "Disable PUT method kecuali diperlukan untuk API (dan lindungi dengan autentikasi)"
+        },
+        {
+          "check": "HTTP Method: DELETE",
+          "status": "FAIL",
+          "severity": "HIGH",
+          "detail": "DELETE method diterima server (HTTP 200) — File deletion — attacker bisa menghapus file di server",
+          "recommendation": "Disable DELETE method kecuali diperlukan untuk API"
+        }
+      ],
+      "tests_performed": 5,
+      "passed": 2,
+      "failed": 2
+    },
+    "info_leak": {
+      "findings": [
+        {
+          "check": "Info Leak: Email Address [/]",
+          "status": "FAIL",
+          "severity": "LOW",
+          "detail": "Email address ditemukan di source code — bisa digunakan untuk phishing/spam. Value (masked): sipa****c.id",
+          "recommendation": "Jangan hardcode email di HTML. Gunakan form kontak atau obfuscation."
+        }
+      ],
+      "passed": 0,
+      "failed": 1
+    },
+    "cookies": {
+      "findings": [
+        {
+          "check": "Cookie: MoodleSession (session)",
+          "status": "FAIL",
+          "severity": "MEDIUM",
+          "detail": "Cookie 'MoodleSession' memiliki 1 masalah: SameSite=Missing",
+          "recommendation": "Set flag: SameSite=Lax pada cookie 'MoodleSession'"
+        }
+      ],
+      "pages_checked": 8,
+      "passed": 0,
+      "failed": 1
+    },
+    "clickjacking": {
+      "findings": [
+        {
+          "check": "Clickjacking: /",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Halaman dilindungi dari clickjacking via X-Frame-Options: SAMEORIGIN",
+          "recommendation": "-"
+        },
+        {
+          "check": "Clickjacking: /login/index.php",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Halaman dilindungi dari clickjacking via X-Frame-Options: SAMEORIGIN",
+          "recommendation": "-"
+        },
+        {
+          "check": "Clickjacking: /user/view.php",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Halaman dilindungi dari clickjacking via X-Frame-Options: SAMEORIGIN",
+          "recommendation": "-"
+        },
+        {
+          "check": "Clickjacking: /mod/forum/discuss.php",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Halaman dilindungi dari clickjacking via X-Frame-Options: SAMEORIGIN",
+          "recommendation": "-"
+        },
+        {
+          "check": "Clickjacking: /mod/forum/view.php",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Halaman dilindungi dari clickjacking via X-Frame-Options: SAMEORIGIN",
+          "recommendation": "-"
+        }
+      ],
+      "tests_performed": 5,
+      "pages_checked": 5,
+      "passed": 5,
+      "failed": 0
+    },
+    "ports": {
+      "hostname": "sipadi-teknik.polmed.ac.id",
+      "ip": "104.21.51.96",
+      "mode": "extended",
+      "scan_label": "Extended scan (top 1000)",
+      "findings": [
+        {
+          "check": "Port 80/HTTP",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Port 80 (HTTP) terbuka — web server (normal)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Port 443/HTTPS",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Port 443 (HTTPS) terbuka — web server (normal)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Port 8080/HTTP-Alt",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Port 8080 (HTTP-Alt) terbuka — web server (normal)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Port 8443/HTTPS-Alt",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Port 8443 (HTTPS-Alt) terbuka — web server (normal)",
+          "recommendation": "-"
+        }
+      ],
+      "open_ports": [
+        {
+          "port": 80,
+          "service": "HTTP"
+        },
+        {
+          "port": 443,
+          "service": "HTTPS"
+        },
+        {
+          "port": 8080,
+          "service": "HTTP-Alt"
+        },
+        {
+          "port": 8443,
+          "service": "HTTPS-Alt"
+        }
+      ],
+      "ports_scanned": 667,
+      "passed": 4,
+      "failed": 0
+    }
+  },
+  "all_findings": [
+    {
+      "check": "Strict-Transport-Security",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Ditemukan: max-age=63072000;includeSubDomains; preload",
+      "recommendation": "-"
+    },
+    {
+      "check": "Content-Security-Policy",
+      "status": "FAIL",
+      "severity": "HIGH",
+      "detail": "Mencegah XSS dan injeksi konten berbahaya",
+      "recommendation": "Tambahkan header CSP yang sesuai. Minimal: Content-Security-Policy: default-src 'self'"
+    },
+    {
+      "check": "X-Frame-Options",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Ditemukan: sameorigin",
+      "recommendation": "-"
+    },
+    {
+      "check": "X-Content-Type-Options",
+      "status": "FAIL",
+      "severity": "MEDIUM",
+      "detail": "Mencegah MIME-type sniffing",
+      "recommendation": "Tambahkan header: X-Content-Type-Options: nosniff"
+    },
+    {
+      "check": "X-XSS-Protection",
+      "status": "FAIL",
+      "severity": "LOW",
+      "detail": "Mengaktifkan filter XSS bawaan browser (legacy)",
+      "recommendation": "Tambahkan header: X-XSS-Protection: 1; mode=block (atau gunakan CSP sebagai pengganti)"
+    },
+    {
+      "check": "Referrer-Policy",
+      "status": "FAIL",
+      "severity": "LOW",
+      "detail": "Mengontrol informasi referrer yang dikirim browser",
+      "recommendation": "Tambahkan header: Referrer-Policy: strict-origin-when-cross-origin"
+    },
+    {
+      "check": "Permissions-Policy",
+      "status": "FAIL",
+      "severity": "LOW",
+      "detail": "Mengontrol akses fitur browser (kamera, mikrofon, geolokasi)",
+      "recommendation": "Tambahkan header: Permissions-Policy: geolocation=(), camera=(), microphone=()"
+    },
+    {
+      "check": "Server (Info Leak)",
+      "status": "FAIL",
+      "severity": "LOW",
+      "detail": "Terdeteksi: cloudflare — Membocorkan versi web server (misal: Apache/2.4.41)",
+      "recommendation": "Sembunyikan atau hapus header Server dari response"
+    },
+    {
+      "check": "X-Powered-By (Info Leak)",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Tidak ditemukan (bagus)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Cookie: MoodleSession",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Cookie flags aman",
+      "recommendation": "-"
+    },
+    {
+      "check": "HTTP → HTTPS Redirect",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "HTTP redirect ke HTTPS (301)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Validitas Sertifikat SSL",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Sertifikat valid dan terpercaya",
+      "recommendation": "-"
+    },
+    {
+      "check": "Masa Berlaku Sertifikat",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Sertifikat berlaku 67 hari lagi (Jul 27 19:21:36 2026 GMT)",
+      "recommendation": "Jadwalkan pembaruan sertifikat"
+    },
+    {
+      "check": "Versi TLS",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Server menggunakan TLSv1.3",
+      "recommendation": "-"
+    },
+    {
+      "check": "Cipher Strength",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Cipher: TLS_AES_256_GCM_SHA384 (256-bit)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Certificate Issuer",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Diterbitkan oleh: Google Trust Services (WE1)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Domain Match (SAN)",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Domain 'sipadi-teknik.polmed.ac.id' tercantum di SAN sertifikat",
+      "recommendation": "-"
+    },
+    {
+      "check": "File: /package.json",
+      "status": "FAIL",
+      "severity": "LOW",
+      "category": "Package Info",
+      "detail": "EXPOSED! Node.js package.json exposed — membocorkan dependensi & versi (HTTP 200, 1825 bytes)",
+      "recommendation": "Blokir akses ke package.json via web server",
+      "result_type": "exposed",
+      "_content_length": 1825
+    },
+    {
+      "check": "File: /composer.json",
+      "status": "FAIL",
+      "severity": "LOW",
+      "category": "Package Info",
+      "detail": "EXPOSED! PHP Composer config exposed — membocorkan dependensi (HTTP 200, 2094 bytes)",
+      "recommendation": "Blokir akses ke composer.json",
+      "result_type": "exposed",
+      "_content_length": 2094
+    },
+    {
+      "check": "File: /.htaccess",
+      "status": "PASS",
+      "severity": "INFO",
+      "category": "Server Config",
+      "detail": "File ada tapi akses diblokir (HTTP 403) — server melindungi dengan benar",
+      "recommendation": "-",
+      "result_type": "protected"
+    },
+    {
+      "check": "File: /wp-config.php",
+      "status": "PASS",
+      "severity": "INFO",
+      "category": "CMS Config",
+      "detail": "File ada tapi akses diblokir (HTTP 403) — server melindungi dengan benar",
+      "recommendation": "-",
+      "result_type": "protected"
+    },
+    {
+      "check": "File: /wp-config.php.bak",
+      "status": "PASS",
+      "severity": "INFO",
+      "category": "CMS Config",
+      "detail": "File ada tapi akses diblokir (HTTP 403) — server melindungi dengan benar",
+      "recommendation": "-",
+      "result_type": "protected"
+    },
+    {
+      "check": "File: /wp-config.php~",
+      "status": "PASS",
+      "severity": "INFO",
+      "category": "CMS Config",
+      "detail": "File ada tapi akses diblokir (HTTP 403) — server melindungi dengan benar",
+      "recommendation": "-",
+      "result_type": "protected"
+    },
+    {
+      "check": "File: /server-status",
+      "status": "PASS",
+      "severity": "INFO",
+      "category": "Info Disclosure",
+      "detail": "File ada tapi akses diblokir (HTTP 403) — server melindungi dengan benar",
+      "recommendation": "-",
+      "result_type": "protected"
+    },
+    {
+      "check": "CMS Detection",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Tidak ada CMS populer terdeteksi (custom-built atau non-standard CMS)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Advanced SQL Injection Scan",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Tidak ditemukan SQLi (226 tests: 84 error-based, 80 boolean-based, 62 time-based)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Reflected XSS Scan",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Tidak ditemukan Reflected XSS di 20 halaman (457 injection points tested)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Stored XSS Scan",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Tidak ditemukan Stored XSS (3 form disubmit, 84 page-checks dilakukan)",
+      "recommendation": "-"
+    },
+    {
+      "check": "CSRF Form Analysis",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Tidak ada form ditemukan di halaman ini",
+      "recommendation": "-"
+    },
+    {
+      "check": "CSRF: POST form → /login/index.php",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "CSRF token ditemukan: 'logintoken'",
+      "recommendation": "-"
+    },
+    {
+      "check": "CSRF: POST form → /login/index.php",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "CSRF token ditemukan: 'logintoken'",
+      "recommendation": "-"
+    },
+    {
+      "check": "CSRF: GET form → /mod/forum/discuss.php",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Form GET tanpa CSRF token (umumnya acceptable untuk form pencarian)",
+      "recommendation": "Pastikan form GET tidak melakukan perubahan data/state"
+    },
+    {
+      "check": "CSRF: GET form → /mod/forum/search.php",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Form GET tanpa CSRF token (umumnya acceptable untuk form pencarian)",
+      "recommendation": "Pastikan form GET tidak melakukan perubahan data/state"
+    },
+    {
+      "check": "CSRF Form Analysis",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Tidak ada form ditemukan di halaman ini",
+      "recommendation": "-"
+    },
+    {
+      "check": "CSRF: POST form → /login/forgot_password.php",
+      "status": "FAIL",
+      "severity": "HIGH",
+      "detail": "Form POST tanpa CSRF token — rentan terhadap CSRF attack",
+      "recommendation": "Tambahkan CSRF token (hidden input) pada setiap form POST. Gunakan framework yang mendukung CSRF protection built-in (Django, Laravel, Express csrf middleware)."
+    },
+    {
+      "check": "Open Redirect Scan",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Tidak ditemukan Open Redirect (680 tests pada 10 halaman)",
+      "recommendation": "-"
+    },
+    {
+      "check": "CORS Configuration Scan",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Tidak ditemukan CORS misconfiguration (7 tests pada 6 halaman)",
+      "recommendation": "-"
+    },
+    {
+      "check": "HTTP Method: PUT",
+      "status": "FAIL",
+      "severity": "HIGH",
+      "detail": "PUT method diterima server (HTTP 200) — File upload/overwrite — attacker bisa upload webshell atau overwrite file",
+      "recommendation": "Disable PUT method kecuali diperlukan untuk API (dan lindungi dengan autentikasi)"
+    },
+    {
+      "check": "HTTP Method: DELETE",
+      "status": "FAIL",
+      "severity": "HIGH",
+      "detail": "DELETE method diterima server (HTTP 200) — File deletion — attacker bisa menghapus file di server",
+      "recommendation": "Disable DELETE method kecuali diperlukan untuk API"
+    },
+    {
+      "check": "Info Leak: Email Address [/]",
+      "status": "FAIL",
+      "severity": "LOW",
+      "detail": "Email address ditemukan di source code — bisa digunakan untuk phishing/spam. Value (masked): sipa****c.id",
+      "recommendation": "Jangan hardcode email di HTML. Gunakan form kontak atau obfuscation."
+    },
+    {
+      "check": "Cookie: MoodleSession (session)",
+      "status": "FAIL",
+      "severity": "MEDIUM",
+      "detail": "Cookie 'MoodleSession' memiliki 1 masalah: SameSite=Missing",
+      "recommendation": "Set flag: SameSite=Lax pada cookie 'MoodleSession'"
+    },
+    {
+      "check": "Clickjacking: /",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Halaman dilindungi dari clickjacking via X-Frame-Options: SAMEORIGIN",
+      "recommendation": "-"
+    },
+    {
+      "check": "Clickjacking: /login/index.php",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Halaman dilindungi dari clickjacking via X-Frame-Options: SAMEORIGIN",
+      "recommendation": "-"
+    },
+    {
+      "check": "Clickjacking: /user/view.php",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Halaman dilindungi dari clickjacking via X-Frame-Options: SAMEORIGIN",
+      "recommendation": "-"
+    },
+    {
+      "check": "Clickjacking: /mod/forum/discuss.php",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Halaman dilindungi dari clickjacking via X-Frame-Options: SAMEORIGIN",
+      "recommendation": "-"
+    },
+    {
+      "check": "Clickjacking: /mod/forum/view.php",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Halaman dilindungi dari clickjacking via X-Frame-Options: SAMEORIGIN",
+      "recommendation": "-"
+    },
+    {
+      "check": "Port 80/HTTP",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Port 80 (HTTP) terbuka — web server (normal)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Port 443/HTTPS",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Port 443 (HTTPS) terbuka — web server (normal)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Port 8080/HTTP-Alt",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Port 8080 (HTTP-Alt) terbuka — web server (normal)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Port 8443/HTTPS-Alt",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Port 8443 (HTTPS-Alt) terbuka — web server (normal)",
+      "recommendation": "-"
+    }
+  ],
+  "statistics": {
+    "total_checks": 52,
+    "total_passed": 67,
+    "total_failed": 13
+  }
+}

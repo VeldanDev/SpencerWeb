@@ -1,0 +1,2222 @@
+{
+  "scan_info": {
+    "tool": "SpencerWeb v2.0",
+    "author": "SpencerWeb Security Audit Tool",
+    "method": "OWASP Top 10 + CVSS Scoring",
+    "timestamp": "2026-05-21T11:35:37.591618",
+    "target": "https://bgn.go.id/",
+    "scan_duration_seconds": 70.32
+  },
+  "crawl_info": {
+    "pages_crawled": 1,
+    "forms_found": 0,
+    "urls_with_params": 0,
+    "pages_failed": 0
+  },
+  "grade": {
+    "grade": "D",
+    "score": 52,
+    "severity_count": {
+      "CRITICAL": 0,
+      "HIGH": 4,
+      "MEDIUM": 3,
+      "LOW": 8,
+      "INFO": 0
+    },
+    "summary": "4 HIGH, 3 MEDIUM, 8 LOW"
+  },
+  "modules": {
+    "headers": {
+      "findings": [
+        {
+          "check": "Strict-Transport-Security",
+          "status": "FAIL",
+          "severity": "HIGH",
+          "detail": "Memaksa browser selalu menggunakan HTTPS",
+          "recommendation": "Tambahkan header: Strict-Transport-Security: max-age=31536000; includeSubDomains"
+        },
+        {
+          "check": "Content-Security-Policy",
+          "status": "FAIL",
+          "severity": "HIGH",
+          "detail": "Mencegah XSS dan injeksi konten berbahaya",
+          "recommendation": "Tambahkan header CSP yang sesuai. Minimal: Content-Security-Policy: default-src 'self'"
+        },
+        {
+          "check": "X-Frame-Options",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Ditemukan: SAMEORIGIN",
+          "recommendation": "-"
+        },
+        {
+          "check": "X-Content-Type-Options",
+          "status": "FAIL",
+          "severity": "MEDIUM",
+          "detail": "Mencegah MIME-type sniffing",
+          "recommendation": "Tambahkan header: X-Content-Type-Options: nosniff"
+        },
+        {
+          "check": "X-XSS-Protection",
+          "status": "FAIL",
+          "severity": "LOW",
+          "detail": "Mengaktifkan filter XSS bawaan browser (legacy)",
+          "recommendation": "Tambahkan header: X-XSS-Protection: 1; mode=block (atau gunakan CSP sebagai pengganti)"
+        },
+        {
+          "check": "Referrer-Policy",
+          "status": "FAIL",
+          "severity": "LOW",
+          "detail": "Mengontrol informasi referrer yang dikirim browser",
+          "recommendation": "Tambahkan header: Referrer-Policy: strict-origin-when-cross-origin"
+        },
+        {
+          "check": "Permissions-Policy",
+          "status": "FAIL",
+          "severity": "LOW",
+          "detail": "Mengontrol akses fitur browser (kamera, mikrofon, geolokasi)",
+          "recommendation": "Tambahkan header: Permissions-Policy: geolocation=(), camera=(), microphone=()"
+        },
+        {
+          "check": "Server (Info Leak)",
+          "status": "FAIL",
+          "severity": "LOW",
+          "detail": "Terdeteksi: CW — Membocorkan versi web server (misal: Apache/2.4.41)",
+          "recommendation": "Sembunyikan atau hapus header Server dari response"
+        },
+        {
+          "check": "X-Powered-By (Info Leak)",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Tidak ditemukan (bagus)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Cookie: HWWAFSESID",
+          "status": "FAIL",
+          "severity": "MEDIUM",
+          "detail": "Cookie tidak aman: Missing 'Secure' flag, Missing 'HttpOnly' flag",
+          "recommendation": "Set flag Secure dan HttpOnly pada semua cookie sensitif"
+        },
+        {
+          "check": "Cookie: HWWAFSESTIME",
+          "status": "FAIL",
+          "severity": "MEDIUM",
+          "detail": "Cookie tidak aman: Missing 'Secure' flag, Missing 'HttpOnly' flag",
+          "recommendation": "Set flag Secure dan HttpOnly pada semua cookie sensitif"
+        },
+        {
+          "check": "HTTP → HTTPS Redirect",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "HTTP redirect ke HTTPS (301)",
+          "recommendation": "-"
+        }
+      ],
+      "raw_headers": {
+        "Date": "Thu, 21 May 2026 04:34:28 GMT",
+        "Content-Type": "text/html",
+        "Transfer-Encoding": "chunked",
+        "Connection": "keep-alive",
+        "Set-Cookie": "HWWAFSESID=4c4087ccc5fe24c80c; path=/, HWWAFSESTIME=1779338066006; path=/",
+        "Server": "CW",
+        "X-Frame-Options": "SAMEORIGIN",
+        "Content-Encoding": "gzip"
+      },
+      "passed": 3,
+      "failed": 9
+    },
+    "ssl": {
+      "hostname": "bgn.go.id",
+      "tls_version": "TLSv1.3",
+      "findings": [
+        {
+          "check": "Validitas Sertifikat SSL",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Sertifikat valid dan terpercaya",
+          "recommendation": "-"
+        },
+        {
+          "check": "Masa Berlaku Sertifikat",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Sertifikat berlaku 289 hari lagi (Mar  6 23:59:59 2027 GMT)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Versi TLS",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Server menggunakan TLSv1.3",
+          "recommendation": "-"
+        },
+        {
+          "check": "Cipher Strength",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Cipher: TLS_AES_256_GCM_SHA384 (256-bit)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Certificate Issuer",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Diterbitkan oleh: Sectigo Limited (Sectigo Public Server Authentication CA DV R36)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Domain Match (SAN)",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Domain 'bgn.go.id' tercantum di SAN sertifikat",
+          "recommendation": "-"
+        }
+      ],
+      "cert_info": {
+        "subject_commonName": "*.bgn.go.id",
+        "issuer_countryName": "GB",
+        "issuer_organizationName": "Sectigo Limited",
+        "issuer_commonName": "Sectigo Public Server Authentication CA DV R36",
+        "notBefore": "Feb  9 00:00:00 2026 GMT",
+        "notAfter": "Mar  6 23:59:59 2027 GMT",
+        "serialNumber": "BC3B59008649491B50403EC44356ACD8",
+        "san": [
+          "*.bgn.go.id",
+          "bgn.go.id"
+        ]
+      },
+      "passed": 6,
+      "failed": 0
+    },
+    "sensitive_files": {
+      "findings": [],
+      "total_paths_checked": 35,
+      "passed": 35,
+      "failed": 0
+    },
+    "cms": {
+      "cms": null,
+      "version": null,
+      "findings": [
+        {
+          "check": "CMS Detection",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Tidak ada CMS populer terdeteksi (custom-built atau non-standard CMS)",
+          "recommendation": "-"
+        }
+      ],
+      "passed": 1,
+      "failed": 0
+    },
+    "sqli_advanced": {
+      "findings": [
+        {
+          "check": "Advanced SQL Injection Scan",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Tidak ditemukan SQLi (0 tests: 0 error-based, 0 boolean-based, 0 time-based)",
+          "recommendation": "-"
+        }
+      ],
+      "tests_performed": {
+        "error_based": 0,
+        "boolean_based": 0,
+        "time_based": 0
+      },
+      "total_tests": 0,
+      "passed": 1,
+      "failed": 0
+    },
+    "xss": {
+      "findings": [
+        {
+          "check": "Reflected XSS Scan",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Tidak ditemukan Reflected XSS di 1 halaman (0 injection points tested)",
+          "recommendation": "-"
+        }
+      ],
+      "passed": 1,
+      "failed": 0,
+      "injection_points_tested": 0
+    },
+    "csrf": {
+      "findings": [
+        {
+          "check": "CSRF Form Analysis",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Tidak ada form ditemukan di halaman ini",
+          "recommendation": "-"
+        }
+      ],
+      "passed": 1,
+      "failed": 0,
+      "forms_analyzed": 0
+    },
+    "open_redirect": {
+      "findings": [
+        {
+          "check": "Open Redirect Scan",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Tidak ditemukan Open Redirect (68 tests pada 1 halaman)",
+          "recommendation": "-"
+        }
+      ],
+      "tests_performed": 68,
+      "passed": 1,
+      "failed": 0
+    },
+    "cors": {
+      "findings": [
+        {
+          "check": "CORS Configuration Scan",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Tidak ditemukan CORS misconfiguration (2 tests pada 1 halaman)",
+          "recommendation": "-"
+        }
+      ],
+      "tests_performed": 2,
+      "pages_checked": 1,
+      "passed": 1,
+      "failed": 0
+    },
+    "http_methods": {
+      "findings": [
+        {
+          "check": "HTTP Method Security",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Tidak ada HTTP method berbahaya yang aktif (5 methods tested)",
+          "recommendation": "-"
+        }
+      ],
+      "tests_performed": 5,
+      "passed": 5,
+      "failed": 0
+    },
+    "info_leak": {
+      "findings": [
+        {
+          "check": "Info Leak: Email Address [/]",
+          "status": "FAIL",
+          "severity": "LOW",
+          "detail": "Email address ditemukan di source code — bisa digunakan untuk phishing/spam. Value (masked): halo****o.id",
+          "recommendation": "Jangan hardcode email di HTML. Gunakan form kontak atau obfuscation."
+        }
+      ],
+      "passed": 0,
+      "failed": 1
+    },
+    "cookies": {
+      "findings": [
+        {
+          "check": "Cookie: HWWAFSESID (session)",
+          "status": "FAIL",
+          "severity": "HIGH",
+          "detail": "Cookie 'HWWAFSESID' memiliki 3 masalah: Missing Secure flag; Missing HttpOnly flag; SameSite=Missing",
+          "recommendation": "Set flag: Secure, HttpOnly, SameSite=Lax pada cookie 'HWWAFSESID'"
+        }
+      ],
+      "pages_checked": 1,
+      "passed": 0,
+      "failed": 1
+    },
+    "clickjacking": {
+      "findings": [
+        {
+          "check": "Clickjacking: /",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Halaman dilindungi dari clickjacking via X-Frame-Options: SAMEORIGIN",
+          "recommendation": "-"
+        }
+      ],
+      "tests_performed": 1,
+      "pages_checked": 1,
+      "passed": 1,
+      "failed": 0
+    },
+    "dir_discovery": {
+      "findings": [
+        {
+          "check": "Directory: /robots.txt",
+          "status": "FAIL",
+          "severity": "LOW",
+          "detail": "Path /robots.txt accessible (HTTP 200, 68 bytes)",
+          "recommendation": "Verifikasi apakah path ini perlu accessible publik. Blokir jika tidak diperlukan."
+        }
+      ],
+      "passed": 0,
+      "failed": 1
+    },
+    "tech": {
+      "findings": [
+        {
+          "check": "Technology Stack",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Terdeteksi 1 teknologi: Server CW",
+          "recommendation": "-"
+        }
+      ],
+      "passed": 1,
+      "failed": 0
+    },
+    "security_txt": {
+      "findings": [
+        {
+          "check": "security.txt (missing)",
+          "status": "FAIL",
+          "severity": "LOW",
+          "detail": "security.txt tidak ditemukan — best practice adalah menyediakan file ini agar security researcher tahu cara melaporkan kerentanan",
+          "recommendation": "Buat file /.well-known/security.txt sesuai RFC 9116. Minimal berisi Contact: dan Expires: fields."
+        },
+        {
+          "check": "robots.txt",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "robots.txt ditemukan dengan 0 disallow entries. Tidak ada path sensitif yang ter-expose.",
+          "recommendation": "-"
+        }
+      ],
+      "passed": 1,
+      "failed": 1
+    },
+    "waf": {
+      "findings": [
+        {
+          "check": "WAF Detection",
+          "status": "FAIL",
+          "severity": "LOW",
+          "detail": "Tidak terdeteksi WAF (Web Application Firewall) — website mungkin tidak menggunakan layer proteksi tambahan",
+          "recommendation": "Pertimbangkan menggunakan WAF seperti Cloudflare, AWS WAF, atau ModSecurity untuk proteksi tambahan terhadap serangan web"
+        }
+      ],
+      "passed": 0,
+      "failed": 1
+    },
+    "ports": {
+      "hostname": "bgn.go.id",
+      "ip": "110.239.78.83",
+      "mode": "extended",
+      "scan_label": "Extended scan (top 1000)",
+      "findings": [
+        {
+          "check": "Port 80/HTTP",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Port 80 (HTTP) terbuka — web server (normal)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Port 81/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 81 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 81 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 82/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 82 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 82 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 83/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 83 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 83 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 84/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 84 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 84 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 85/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 85 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 85 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 86/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 86 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 86 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 87/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 87 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 87 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 88/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 88 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 88 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 89/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 89 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 89 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 90/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 90 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 90 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 97/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 97 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 97 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 133/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 133 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 133 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 134/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 134 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 134 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 140/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 140 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 140 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 141/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 141 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 141 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 144/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 144 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 144 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 151/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 151 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 151 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 280/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 280 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 280 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 442/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 442 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 442 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 443/HTTPS",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Port 443 (HTTPS) terbuka — web server (normal)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Port 587/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 587 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 587 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 808/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 808 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 808 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 995/POP3S",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 995 (POP3S) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 995 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 1102/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 1102 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 1102 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 3000/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 3000 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 3000 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 3128/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 3128 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 3128 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 4443/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 4443 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 4443 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 4444/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 4444 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 4444 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 5000/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 5000 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 5000 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 5001/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 5001 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 5001 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 5100/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 5100 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 5100 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 5222/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 5222 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 5222 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 5555/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 5555 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 5555 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 5601/Kibana",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 5601 (Kibana) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 5601 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 6001/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 6001 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 6001 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 6666/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 6666 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 6666 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 7001/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 7001 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 7001 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 7002/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 7002 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 7002 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 7019/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 7019 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 7019 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 7070/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 7070 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 7070 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 7777/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 7777 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 7777 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 8000/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 8000 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 8000 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 8002/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 8002 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 8002 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 8008/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 8008 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 8008 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 8009/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 8009 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 8009 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 8010/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 8010 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 8010 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 8021/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 8021 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 8021 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 8022/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 8022 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 8022 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 8080/HTTP-Alt",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Port 8080 (HTTP-Alt) terbuka — web server (normal)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Port 8081/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 8081 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 8081 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 8082/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 8082 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 8082 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 8083/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 8083 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 8083 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 8084/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 8084 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 8084 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 8085/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 8085 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 8085 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 8086/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 8086 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 8086 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 8087/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 8087 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 8087 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 8088/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 8088 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 8088 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 8089/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 8089 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 8089 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 8090/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 8090 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 8090 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 8093/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 8093 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 8093 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 8180/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 8180 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 8180 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 8200/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 8200 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 8200 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 8443/HTTPS-Alt",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Port 8443 (HTTPS-Alt) terbuka — web server (normal)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Port 8800/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 8800 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 8800 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 8888/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 8888 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 8888 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 8899/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 8899 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 8899 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 9000/PHP-FPM",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 9000 (PHP-FPM) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 9000 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 9001/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 9001 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 9001 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 9002/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 9002 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 9002 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 9003/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 9003 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 9003 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 9050/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 9050 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 9050 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 9080/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 9080 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 9080 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 9090/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 9090 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 9090 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 9091/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 9091 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 9091 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 9099/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 9099 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 9099 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 9100/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 9100 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 9100 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 9200/Elasticsearch",
+          "status": "FAIL",
+          "severity": "HIGH",
+          "detail": "Port 9200 (Elasticsearch) TERBUKA — Elasticsearch exposed — data leak",
+          "recommendation": "Tutup port 9200 via firewall jika tidak diperlukan. Jika diperlukan, batasi akses via IP allowlist."
+        },
+        {
+          "check": "Port 9300/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 9300 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 9300 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 9929/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 9929 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 9929 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 9999/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 9999 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 9999 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 10000/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 10000 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 10000 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 10001/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 10001 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 10001 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 10002/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 10002 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 10002 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 14000/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 14000 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 14000 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 19101/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 19101 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 19101 memang diperlukan. Tutup jika tidak digunakan."
+        },
+        {
+          "check": "Port 20000/Unknown",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Port 20000 (Unknown) terbuka — verifikasi apakah perlu",
+          "recommendation": "Cek apakah service di port 20000 memang diperlukan. Tutup jika tidak digunakan."
+        }
+      ],
+      "open_ports": [
+        {
+          "port": 80,
+          "service": "HTTP"
+        },
+        {
+          "port": 81,
+          "service": "Unknown"
+        },
+        {
+          "port": 82,
+          "service": "Unknown"
+        },
+        {
+          "port": 83,
+          "service": "Unknown"
+        },
+        {
+          "port": 84,
+          "service": "Unknown"
+        },
+        {
+          "port": 85,
+          "service": "Unknown"
+        },
+        {
+          "port": 86,
+          "service": "Unknown"
+        },
+        {
+          "port": 87,
+          "service": "Unknown"
+        },
+        {
+          "port": 88,
+          "service": "Unknown"
+        },
+        {
+          "port": 89,
+          "service": "Unknown"
+        },
+        {
+          "port": 90,
+          "service": "Unknown"
+        },
+        {
+          "port": 97,
+          "service": "Unknown"
+        },
+        {
+          "port": 133,
+          "service": "Unknown"
+        },
+        {
+          "port": 134,
+          "service": "Unknown"
+        },
+        {
+          "port": 140,
+          "service": "Unknown"
+        },
+        {
+          "port": 141,
+          "service": "Unknown"
+        },
+        {
+          "port": 144,
+          "service": "Unknown"
+        },
+        {
+          "port": 151,
+          "service": "Unknown"
+        },
+        {
+          "port": 280,
+          "service": "Unknown"
+        },
+        {
+          "port": 442,
+          "service": "Unknown"
+        },
+        {
+          "port": 443,
+          "service": "HTTPS"
+        },
+        {
+          "port": 587,
+          "service": "Unknown"
+        },
+        {
+          "port": 808,
+          "service": "Unknown"
+        },
+        {
+          "port": 995,
+          "service": "POP3S"
+        },
+        {
+          "port": 1102,
+          "service": "Unknown"
+        },
+        {
+          "port": 3000,
+          "service": "Unknown"
+        },
+        {
+          "port": 3128,
+          "service": "Unknown"
+        },
+        {
+          "port": 4443,
+          "service": "Unknown"
+        },
+        {
+          "port": 4444,
+          "service": "Unknown"
+        },
+        {
+          "port": 5000,
+          "service": "Unknown"
+        },
+        {
+          "port": 5001,
+          "service": "Unknown"
+        },
+        {
+          "port": 5100,
+          "service": "Unknown"
+        },
+        {
+          "port": 5222,
+          "service": "Unknown"
+        },
+        {
+          "port": 5555,
+          "service": "Unknown"
+        },
+        {
+          "port": 5601,
+          "service": "Kibana"
+        },
+        {
+          "port": 6001,
+          "service": "Unknown"
+        },
+        {
+          "port": 6666,
+          "service": "Unknown"
+        },
+        {
+          "port": 7001,
+          "service": "Unknown"
+        },
+        {
+          "port": 7002,
+          "service": "Unknown"
+        },
+        {
+          "port": 7019,
+          "service": "Unknown"
+        },
+        {
+          "port": 7070,
+          "service": "Unknown"
+        },
+        {
+          "port": 7777,
+          "service": "Unknown"
+        },
+        {
+          "port": 8000,
+          "service": "Unknown"
+        },
+        {
+          "port": 8002,
+          "service": "Unknown"
+        },
+        {
+          "port": 8008,
+          "service": "Unknown"
+        },
+        {
+          "port": 8009,
+          "service": "Unknown"
+        },
+        {
+          "port": 8010,
+          "service": "Unknown"
+        },
+        {
+          "port": 8021,
+          "service": "Unknown"
+        },
+        {
+          "port": 8022,
+          "service": "Unknown"
+        },
+        {
+          "port": 8080,
+          "service": "HTTP-Alt"
+        },
+        {
+          "port": 8081,
+          "service": "Unknown"
+        },
+        {
+          "port": 8082,
+          "service": "Unknown"
+        },
+        {
+          "port": 8083,
+          "service": "Unknown"
+        },
+        {
+          "port": 8084,
+          "service": "Unknown"
+        },
+        {
+          "port": 8085,
+          "service": "Unknown"
+        },
+        {
+          "port": 8086,
+          "service": "Unknown"
+        },
+        {
+          "port": 8087,
+          "service": "Unknown"
+        },
+        {
+          "port": 8088,
+          "service": "Unknown"
+        },
+        {
+          "port": 8089,
+          "service": "Unknown"
+        },
+        {
+          "port": 8090,
+          "service": "Unknown"
+        },
+        {
+          "port": 8093,
+          "service": "Unknown"
+        },
+        {
+          "port": 8180,
+          "service": "Unknown"
+        },
+        {
+          "port": 8200,
+          "service": "Unknown"
+        },
+        {
+          "port": 8443,
+          "service": "HTTPS-Alt"
+        },
+        {
+          "port": 8800,
+          "service": "Unknown"
+        },
+        {
+          "port": 8888,
+          "service": "Unknown"
+        },
+        {
+          "port": 8899,
+          "service": "Unknown"
+        },
+        {
+          "port": 9000,
+          "service": "PHP-FPM"
+        },
+        {
+          "port": 9001,
+          "service": "Unknown"
+        },
+        {
+          "port": 9002,
+          "service": "Unknown"
+        },
+        {
+          "port": 9003,
+          "service": "Unknown"
+        },
+        {
+          "port": 9050,
+          "service": "Unknown"
+        },
+        {
+          "port": 9080,
+          "service": "Unknown"
+        },
+        {
+          "port": 9090,
+          "service": "Unknown"
+        },
+        {
+          "port": 9091,
+          "service": "Unknown"
+        },
+        {
+          "port": 9099,
+          "service": "Unknown"
+        },
+        {
+          "port": 9100,
+          "service": "Unknown"
+        },
+        {
+          "port": 9200,
+          "service": "Elasticsearch"
+        },
+        {
+          "port": 9300,
+          "service": "Unknown"
+        },
+        {
+          "port": 9929,
+          "service": "Unknown"
+        },
+        {
+          "port": 9999,
+          "service": "Unknown"
+        },
+        {
+          "port": 10000,
+          "service": "Unknown"
+        },
+        {
+          "port": 10001,
+          "service": "Unknown"
+        },
+        {
+          "port": 10002,
+          "service": "Unknown"
+        },
+        {
+          "port": 14000,
+          "service": "Unknown"
+        },
+        {
+          "port": 19101,
+          "service": "Unknown"
+        },
+        {
+          "port": 20000,
+          "service": "Unknown"
+        }
+      ],
+      "ports_scanned": 667,
+      "passed": 86,
+      "failed": 1
+    }
+  },
+  "all_findings": [
+    {
+      "check": "Strict-Transport-Security",
+      "status": "FAIL",
+      "severity": "HIGH",
+      "detail": "Memaksa browser selalu menggunakan HTTPS",
+      "recommendation": "Tambahkan header: Strict-Transport-Security: max-age=31536000; includeSubDomains"
+    },
+    {
+      "check": "Content-Security-Policy",
+      "status": "FAIL",
+      "severity": "HIGH",
+      "detail": "Mencegah XSS dan injeksi konten berbahaya",
+      "recommendation": "Tambahkan header CSP yang sesuai. Minimal: Content-Security-Policy: default-src 'self'"
+    },
+    {
+      "check": "X-Frame-Options",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Ditemukan: SAMEORIGIN",
+      "recommendation": "-"
+    },
+    {
+      "check": "X-Content-Type-Options",
+      "status": "FAIL",
+      "severity": "MEDIUM",
+      "detail": "Mencegah MIME-type sniffing",
+      "recommendation": "Tambahkan header: X-Content-Type-Options: nosniff"
+    },
+    {
+      "check": "X-XSS-Protection",
+      "status": "FAIL",
+      "severity": "LOW",
+      "detail": "Mengaktifkan filter XSS bawaan browser (legacy)",
+      "recommendation": "Tambahkan header: X-XSS-Protection: 1; mode=block (atau gunakan CSP sebagai pengganti)"
+    },
+    {
+      "check": "Referrer-Policy",
+      "status": "FAIL",
+      "severity": "LOW",
+      "detail": "Mengontrol informasi referrer yang dikirim browser",
+      "recommendation": "Tambahkan header: Referrer-Policy: strict-origin-when-cross-origin"
+    },
+    {
+      "check": "Permissions-Policy",
+      "status": "FAIL",
+      "severity": "LOW",
+      "detail": "Mengontrol akses fitur browser (kamera, mikrofon, geolokasi)",
+      "recommendation": "Tambahkan header: Permissions-Policy: geolocation=(), camera=(), microphone=()"
+    },
+    {
+      "check": "Server (Info Leak)",
+      "status": "FAIL",
+      "severity": "LOW",
+      "detail": "Terdeteksi: CW — Membocorkan versi web server (misal: Apache/2.4.41)",
+      "recommendation": "Sembunyikan atau hapus header Server dari response"
+    },
+    {
+      "check": "X-Powered-By (Info Leak)",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Tidak ditemukan (bagus)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Cookie: HWWAFSESID",
+      "status": "FAIL",
+      "severity": "MEDIUM",
+      "detail": "Cookie tidak aman: Missing 'Secure' flag, Missing 'HttpOnly' flag",
+      "recommendation": "Set flag Secure dan HttpOnly pada semua cookie sensitif"
+    },
+    {
+      "check": "Cookie: HWWAFSESTIME",
+      "status": "FAIL",
+      "severity": "MEDIUM",
+      "detail": "Cookie tidak aman: Missing 'Secure' flag, Missing 'HttpOnly' flag",
+      "recommendation": "Set flag Secure dan HttpOnly pada semua cookie sensitif"
+    },
+    {
+      "check": "HTTP → HTTPS Redirect",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "HTTP redirect ke HTTPS (301)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Validitas Sertifikat SSL",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Sertifikat valid dan terpercaya",
+      "recommendation": "-"
+    },
+    {
+      "check": "Masa Berlaku Sertifikat",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Sertifikat berlaku 289 hari lagi (Mar  6 23:59:59 2027 GMT)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Versi TLS",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Server menggunakan TLSv1.3",
+      "recommendation": "-"
+    },
+    {
+      "check": "Cipher Strength",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Cipher: TLS_AES_256_GCM_SHA384 (256-bit)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Certificate Issuer",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Diterbitkan oleh: Sectigo Limited (Sectigo Public Server Authentication CA DV R36)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Domain Match (SAN)",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Domain 'bgn.go.id' tercantum di SAN sertifikat",
+      "recommendation": "-"
+    },
+    {
+      "check": "CMS Detection",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Tidak ada CMS populer terdeteksi (custom-built atau non-standard CMS)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Advanced SQL Injection Scan",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Tidak ditemukan SQLi (0 tests: 0 error-based, 0 boolean-based, 0 time-based)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Reflected XSS Scan",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Tidak ditemukan Reflected XSS di 1 halaman (0 injection points tested)",
+      "recommendation": "-"
+    },
+    {
+      "check": "CSRF Form Analysis",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Tidak ada form ditemukan di halaman ini",
+      "recommendation": "-"
+    },
+    {
+      "check": "Open Redirect Scan",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Tidak ditemukan Open Redirect (68 tests pada 1 halaman)",
+      "recommendation": "-"
+    },
+    {
+      "check": "CORS Configuration Scan",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Tidak ditemukan CORS misconfiguration (2 tests pada 1 halaman)",
+      "recommendation": "-"
+    },
+    {
+      "check": "HTTP Method Security",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Tidak ada HTTP method berbahaya yang aktif (5 methods tested)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Info Leak: Email Address [/]",
+      "status": "FAIL",
+      "severity": "LOW",
+      "detail": "Email address ditemukan di source code — bisa digunakan untuk phishing/spam. Value (masked): halo****o.id",
+      "recommendation": "Jangan hardcode email di HTML. Gunakan form kontak atau obfuscation."
+    },
+    {
+      "check": "Cookie: HWWAFSESID (session)",
+      "status": "FAIL",
+      "severity": "HIGH",
+      "detail": "Cookie 'HWWAFSESID' memiliki 3 masalah: Missing Secure flag; Missing HttpOnly flag; SameSite=Missing",
+      "recommendation": "Set flag: Secure, HttpOnly, SameSite=Lax pada cookie 'HWWAFSESID'"
+    },
+    {
+      "check": "Clickjacking: /",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Halaman dilindungi dari clickjacking via X-Frame-Options: SAMEORIGIN",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /robots.txt",
+      "status": "FAIL",
+      "severity": "LOW",
+      "detail": "Path /robots.txt accessible (HTTP 200, 68 bytes)",
+      "recommendation": "Verifikasi apakah path ini perlu accessible publik. Blokir jika tidak diperlukan."
+    },
+    {
+      "check": "Technology Stack",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Terdeteksi 1 teknologi: Server CW",
+      "recommendation": "-"
+    },
+    {
+      "check": "security.txt (missing)",
+      "status": "FAIL",
+      "severity": "LOW",
+      "detail": "security.txt tidak ditemukan — best practice adalah menyediakan file ini agar security researcher tahu cara melaporkan kerentanan",
+      "recommendation": "Buat file /.well-known/security.txt sesuai RFC 9116. Minimal berisi Contact: dan Expires: fields."
+    },
+    {
+      "check": "robots.txt",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "robots.txt ditemukan dengan 0 disallow entries. Tidak ada path sensitif yang ter-expose.",
+      "recommendation": "-"
+    },
+    {
+      "check": "WAF Detection",
+      "status": "FAIL",
+      "severity": "LOW",
+      "detail": "Tidak terdeteksi WAF (Web Application Firewall) — website mungkin tidak menggunakan layer proteksi tambahan",
+      "recommendation": "Pertimbangkan menggunakan WAF seperti Cloudflare, AWS WAF, atau ModSecurity untuk proteksi tambahan terhadap serangan web"
+    },
+    {
+      "check": "Port 80/HTTP",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Port 80 (HTTP) terbuka — web server (normal)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Port 81/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 81 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 81 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 82/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 82 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 82 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 83/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 83 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 83 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 84/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 84 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 84 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 85/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 85 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 85 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 86/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 86 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 86 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 87/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 87 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 87 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 88/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 88 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 88 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 89/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 89 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 89 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 90/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 90 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 90 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 97/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 97 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 97 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 133/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 133 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 133 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 134/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 134 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 134 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 140/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 140 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 140 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 141/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 141 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 141 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 144/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 144 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 144 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 151/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 151 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 151 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 280/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 280 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 280 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 442/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 442 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 442 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 443/HTTPS",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Port 443 (HTTPS) terbuka — web server (normal)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Port 587/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 587 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 587 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 808/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 808 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 808 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 995/POP3S",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 995 (POP3S) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 995 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 1102/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 1102 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 1102 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 3000/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 3000 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 3000 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 3128/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 3128 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 3128 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 4443/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 4443 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 4443 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 4444/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 4444 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 4444 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 5000/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 5000 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 5000 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 5001/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 5001 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 5001 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 5100/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 5100 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 5100 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 5222/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 5222 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 5222 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 5555/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 5555 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 5555 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 5601/Kibana",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 5601 (Kibana) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 5601 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 6001/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 6001 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 6001 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 6666/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 6666 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 6666 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 7001/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 7001 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 7001 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 7002/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 7002 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 7002 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 7019/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 7019 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 7019 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 7070/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 7070 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 7070 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 7777/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 7777 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 7777 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 8000/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 8000 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 8000 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 8002/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 8002 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 8002 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 8008/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 8008 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 8008 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 8009/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 8009 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 8009 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 8010/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 8010 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 8010 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 8021/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 8021 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 8021 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 8022/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 8022 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 8022 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 8080/HTTP-Alt",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Port 8080 (HTTP-Alt) terbuka — web server (normal)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Port 8081/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 8081 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 8081 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 8082/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 8082 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 8082 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 8083/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 8083 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 8083 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 8084/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 8084 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 8084 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 8085/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 8085 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 8085 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 8086/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 8086 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 8086 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 8087/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 8087 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 8087 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 8088/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 8088 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 8088 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 8089/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 8089 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 8089 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 8090/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 8090 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 8090 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 8093/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 8093 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 8093 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 8180/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 8180 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 8180 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 8200/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 8200 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 8200 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 8443/HTTPS-Alt",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Port 8443 (HTTPS-Alt) terbuka — web server (normal)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Port 8800/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 8800 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 8800 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 8888/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 8888 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 8888 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 8899/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 8899 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 8899 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 9000/PHP-FPM",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 9000 (PHP-FPM) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 9000 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 9001/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 9001 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 9001 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 9002/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 9002 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 9002 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 9003/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 9003 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 9003 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 9050/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 9050 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 9050 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 9080/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 9080 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 9080 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 9090/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 9090 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 9090 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 9091/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 9091 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 9091 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 9099/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 9099 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 9099 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 9100/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 9100 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 9100 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 9200/Elasticsearch",
+      "status": "FAIL",
+      "severity": "HIGH",
+      "detail": "Port 9200 (Elasticsearch) TERBUKA — Elasticsearch exposed — data leak",
+      "recommendation": "Tutup port 9200 via firewall jika tidak diperlukan. Jika diperlukan, batasi akses via IP allowlist."
+    },
+    {
+      "check": "Port 9300/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 9300 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 9300 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 9929/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 9929 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 9929 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 9999/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 9999 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 9999 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 10000/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 10000 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 10000 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 10001/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 10001 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 10001 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 10002/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 10002 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 10002 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 14000/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 14000 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 14000 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 19101/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 19101 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 19101 memang diperlukan. Tutup jika tidak digunakan."
+    },
+    {
+      "check": "Port 20000/Unknown",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Port 20000 (Unknown) terbuka — verifikasi apakah perlu",
+      "recommendation": "Cek apakah service di port 20000 memang diperlukan. Tutup jika tidak digunakan."
+    }
+  ],
+  "statistics": {
+    "total_checks": 124,
+    "total_passed": 144,
+    "total_failed": 15
+  }
+}

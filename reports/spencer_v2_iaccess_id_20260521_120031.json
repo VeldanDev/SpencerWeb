@@ -1,0 +1,1348 @@
+{
+  "scan_info": {
+    "tool": "SpencerWeb v2.0",
+    "author": "SpencerWeb Security Audit Tool",
+    "method": "OWASP Top 10 + CVSS Scoring",
+    "timestamp": "2026-05-21T12:00:31.841906",
+    "target": "https://iaccess.id/",
+    "scan_duration_seconds": 236.29
+  },
+  "crawl_info": {
+    "pages_crawled": 5,
+    "forms_found": 0,
+    "urls_with_params": 0,
+    "pages_failed": 0
+  },
+  "grade": {
+    "grade": "F",
+    "score": 0,
+    "severity_count": {
+      "CRITICAL": 0,
+      "HIGH": 7,
+      "MEDIUM": 10,
+      "LOW": 24,
+      "INFO": 0
+    },
+    "summary": "7 HIGH, 10 MEDIUM, 24 LOW"
+  },
+  "modules": {
+    "headers": {
+      "findings": [
+        {
+          "check": "Strict-Transport-Security",
+          "status": "FAIL",
+          "severity": "HIGH",
+          "detail": "Memaksa browser selalu menggunakan HTTPS",
+          "recommendation": "Tambahkan header: Strict-Transport-Security: max-age=31536000; includeSubDomains"
+        },
+        {
+          "check": "Content-Security-Policy",
+          "status": "FAIL",
+          "severity": "HIGH",
+          "detail": "Mencegah XSS dan injeksi konten berbahaya",
+          "recommendation": "Tambahkan header CSP yang sesuai. Minimal: Content-Security-Policy: default-src 'self'"
+        },
+        {
+          "check": "X-Frame-Options",
+          "status": "FAIL",
+          "severity": "MEDIUM",
+          "detail": "Mencegah clickjacking via iframe",
+          "recommendation": "Tambahkan header: X-Frame-Options: DENY atau SAMEORIGIN"
+        },
+        {
+          "check": "X-Content-Type-Options",
+          "status": "FAIL",
+          "severity": "MEDIUM",
+          "detail": "Mencegah MIME-type sniffing",
+          "recommendation": "Tambahkan header: X-Content-Type-Options: nosniff"
+        },
+        {
+          "check": "X-XSS-Protection",
+          "status": "FAIL",
+          "severity": "LOW",
+          "detail": "Mengaktifkan filter XSS bawaan browser (legacy)",
+          "recommendation": "Tambahkan header: X-XSS-Protection: 1; mode=block (atau gunakan CSP sebagai pengganti)"
+        },
+        {
+          "check": "Referrer-Policy",
+          "status": "FAIL",
+          "severity": "LOW",
+          "detail": "Mengontrol informasi referrer yang dikirim browser",
+          "recommendation": "Tambahkan header: Referrer-Policy: strict-origin-when-cross-origin"
+        },
+        {
+          "check": "Permissions-Policy",
+          "status": "FAIL",
+          "severity": "LOW",
+          "detail": "Mengontrol akses fitur browser (kamera, mikrofon, geolokasi)",
+          "recommendation": "Tambahkan header: Permissions-Policy: geolocation=(), camera=(), microphone=()"
+        },
+        {
+          "check": "Server (Info Leak)",
+          "status": "FAIL",
+          "severity": "LOW",
+          "detail": "Terdeteksi: cloudflare — Membocorkan versi web server (misal: Apache/2.4.41)",
+          "recommendation": "Sembunyikan atau hapus header Server dari response"
+        },
+        {
+          "check": "X-Powered-By (Info Leak)",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Tidak ditemukan (bagus)",
+          "recommendation": "-"
+        },
+        {
+          "check": "HTTP → HTTPS Redirect",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "HTTP redirect ke HTTPS (301)",
+          "recommendation": "-"
+        }
+      ],
+      "raw_headers": {
+        "Date": "Thu, 21 May 2026 04:56:38 GMT",
+        "Content-Type": "text/html; charset=UTF-8",
+        "Transfer-Encoding": "chunked",
+        "Connection": "keep-alive",
+        "Server": "cloudflare",
+        "Nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "Link": "<https://iaccess.id/wp-json/>; rel=\"https://api.w.org/\"",
+        "Vary": "Accept-Encoding",
+        "Report-To": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=TcYGhWuh%2F9I92BGinASz9jnNFi72il4VDgQ9Nd8WURHElL3%2BqsjzTc0sDcaChGVJea6m7TCJ%2FthtWBCKR9isO33ly5dkU8Ca5Qbs1Ux0U1ylXS9KjjFqM9FD%2F%2BG9EwFIHInBH6Ddz51i\"}]}",
+        "cf-cache-status": "DYNAMIC",
+        "Content-Encoding": "gzip",
+        "CF-RAY": "9ff0fee51f85c098-CGK",
+        "alt-svc": "h3=\":443\"; ma=86400"
+      },
+      "passed": 2,
+      "failed": 8
+    },
+    "ssl": {
+      "hostname": "iaccess.id",
+      "tls_version": "TLSv1.3",
+      "findings": [
+        {
+          "check": "Validitas Sertifikat SSL",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Sertifikat valid dan terpercaya",
+          "recommendation": "-"
+        },
+        {
+          "check": "Masa Berlaku Sertifikat",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Sertifikat berlaku 80 hari lagi (Aug  9 14:43:16 2026 GMT)",
+          "recommendation": "Jadwalkan pembaruan sertifikat"
+        },
+        {
+          "check": "Versi TLS",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Server menggunakan TLSv1.3",
+          "recommendation": "-"
+        },
+        {
+          "check": "Cipher Strength",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Cipher: TLS_AES_256_GCM_SHA384 (256-bit)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Certificate Issuer",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Diterbitkan oleh: Google Trust Services (WE1)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Domain Match (SAN)",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Domain 'iaccess.id' tercantum di SAN sertifikat",
+          "recommendation": "-"
+        }
+      ],
+      "cert_info": {
+        "subject_commonName": "iaccess.id",
+        "issuer_countryName": "US",
+        "issuer_organizationName": "Google Trust Services",
+        "issuer_commonName": "WE1",
+        "notBefore": "May 11 13:44:45 2026 GMT",
+        "notAfter": "Aug  9 14:43:16 2026 GMT",
+        "serialNumber": "CF3224CCC4B7053813482E08F4B6F693",
+        "san": [
+          "iaccess.id",
+          "*.iaccess.id"
+        ]
+      },
+      "passed": 6,
+      "failed": 0
+    },
+    "sensitive_files": {
+      "findings": [
+        {
+          "check": "File: /phpmyadmin/",
+          "status": "FAIL",
+          "severity": "HIGH",
+          "category": "Admin Panel",
+          "detail": "EXPOSED! phpMyAdmin terdeteksi — akses langsung ke manajemen database (HTTP 200, 20000 bytes)",
+          "recommendation": "Hapus phpMyAdmin dari production atau batasi akses via IP allowlist",
+          "result_type": "exposed",
+          "_content_length": 20000
+        },
+        {
+          "check": "File: /wp-config.php",
+          "status": "PASS",
+          "severity": "INFO",
+          "category": "CMS Config",
+          "detail": "File ada tapi akses diblokir (HTTP 403) — server melindungi dengan benar",
+          "recommendation": "-",
+          "result_type": "protected"
+        },
+        {
+          "check": "File: /.htaccess",
+          "status": "PASS",
+          "severity": "INFO",
+          "category": "Server Config",
+          "detail": "File ada tapi akses diblokir (HTTP 403) — server melindungi dengan benar",
+          "recommendation": "-",
+          "result_type": "protected"
+        },
+        {
+          "check": "File: /wp-config.php~",
+          "status": "PASS",
+          "severity": "INFO",
+          "category": "CMS Config",
+          "detail": "File ada tapi akses diblokir (HTTP 403) — server melindungi dengan benar",
+          "recommendation": "-",
+          "result_type": "protected"
+        },
+        {
+          "check": "File: /wp-config.php.bak",
+          "status": "PASS",
+          "severity": "INFO",
+          "category": "CMS Config",
+          "detail": "File ada tapi akses diblokir (HTTP 403) — server melindungi dengan benar",
+          "recommendation": "-",
+          "result_type": "protected"
+        }
+      ],
+      "total_paths_checked": 35,
+      "passed": 34,
+      "failed": 1
+    },
+    "cms": {
+      "cms": "WordPress",
+      "version": "6.8.2",
+      "findings": [
+        {
+          "check": "CMS Detection",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "CMS terdeteksi: WordPress versi 6.8.2",
+          "recommendation": "-"
+        },
+        {
+          "check": "WordPress Version Check",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "WordPress versi 6.8.2 — kemungkinan up to date",
+          "recommendation": "-"
+        },
+        {
+          "check": "Info Disclosure: /readme.html",
+          "status": "FAIL",
+          "severity": "LOW",
+          "detail": "File '/readme.html' accessible — membocorkan informasi versi WordPress",
+          "recommendation": "Blokir akses ke /readme.html via konfigurasi web server"
+        }
+      ],
+      "passed": 2,
+      "failed": 1
+    },
+    "wordpress": {
+      "is_wordpress": true,
+      "findings": [
+        {
+          "check": "WordPress Plugin Enumeration",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "2 plugin terdeteksi: Elementor v3.30.3, LiteSpeed Cache v7.2",
+          "recommendation": "-"
+        },
+        {
+          "check": "Info Disclosure: Elementor readme.txt",
+          "status": "FAIL",
+          "severity": "LOW",
+          "detail": "File readme.txt plugin Elementor accessible — membocorkan versi plugin",
+          "recommendation": "Blokir akses ke /wp-content/plugins/elementor/readme.txt"
+        },
+        {
+          "check": "Info Disclosure: LiteSpeed Cache readme.txt",
+          "status": "FAIL",
+          "severity": "LOW",
+          "detail": "File readme.txt plugin LiteSpeed Cache accessible — membocorkan versi plugin",
+          "recommendation": "Blokir akses ke /wp-content/plugins/litespeed-cache/readme.txt"
+        },
+        {
+          "check": "WordPress Active Theme",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Active theme: Blockskit Base v1.1.3",
+          "recommendation": "-"
+        },
+        {
+          "check": "Info Disclosure: Theme style.css",
+          "status": "FAIL",
+          "severity": "LOW",
+          "detail": "File style.css theme accessible — membocorkan nama dan versi theme",
+          "recommendation": "Blokir akses langsung ke style.css theme"
+        },
+        {
+          "check": "XML-RPC Endpoint",
+          "status": "FAIL",
+          "severity": "MEDIUM",
+          "detail": "xmlrpc.php aktif — bisa disalahgunakan untuk brute force dan DDoS amplification",
+          "recommendation": "Disable XML-RPC jika tidak digunakan, atau batasi aksesnya"
+        },
+        {
+          "check": "User Enumeration",
+          "status": "FAIL",
+          "severity": "MEDIUM",
+          "detail": "Username admin teridentifikasi: 'hylmimuhammadfiarymahdi' via /?author=1",
+          "recommendation": "Disable user enumeration via rewrite rules atau plugin keamanan. Hindari menggunakan username 'admin'."
+        },
+        {
+          "check": "REST API User Enumeration",
+          "status": "FAIL",
+          "severity": "MEDIUM",
+          "detail": "REST API /wp-json/wp/v2/users mengekspos daftar user — attacker bisa enumerate username dengan mudah",
+          "recommendation": "Disable atau batasi akses ke REST API users endpoint. Pakai plugin seperti Disable REST API atau filter di functions.php"
+        }
+      ],
+      "plugins_found": [
+        {
+          "found": true,
+          "slug": "elementor",
+          "name": "Elementor",
+          "version": "3.30.3",
+          "latest": "3.25",
+          "readme_exposed": true
+        },
+        {
+          "found": true,
+          "slug": "litespeed-cache",
+          "name": "LiteSpeed Cache",
+          "version": "7.2",
+          "latest": "6.5",
+          "readme_exposed": true
+        }
+      ],
+      "themes_found": [
+        {
+          "slug": "blockskit-base",
+          "name": "Blockskit Base",
+          "version": "1.1.3",
+          "style_exposed": true
+        }
+      ],
+      "passed": 2,
+      "failed": 6
+    },
+    "sqli_advanced": {
+      "findings": [
+        {
+          "check": "Advanced SQL Injection Scan",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Tidak ditemukan SQLi (0 tests: 0 error-based, 0 boolean-based, 0 time-based)",
+          "recommendation": "-"
+        }
+      ],
+      "tests_performed": {
+        "error_based": 0,
+        "boolean_based": 0,
+        "time_based": 0
+      },
+      "total_tests": 0,
+      "passed": 1,
+      "failed": 0
+    },
+    "xss": {
+      "findings": [
+        {
+          "check": "Reflected XSS Scan",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Tidak ditemukan Reflected XSS di 5 halaman (0 injection points tested)",
+          "recommendation": "-"
+        }
+      ],
+      "passed": 1,
+      "failed": 0,
+      "injection_points_tested": 0
+    },
+    "csrf": {
+      "findings": [
+        {
+          "check": "CSRF Form Analysis",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Tidak ada form ditemukan di halaman ini",
+          "recommendation": "-"
+        },
+        {
+          "check": "CSRF Form Analysis",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Tidak ada form ditemukan di halaman ini",
+          "recommendation": "-"
+        },
+        {
+          "check": "CSRF Form Analysis",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Tidak ada form ditemukan di halaman ini",
+          "recommendation": "-"
+        },
+        {
+          "check": "CSRF Form Analysis",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Tidak ada form ditemukan di halaman ini",
+          "recommendation": "-"
+        },
+        {
+          "check": "CSRF Form Analysis",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Tidak ada form ditemukan di halaman ini",
+          "recommendation": "-"
+        }
+      ],
+      "passed": 5,
+      "failed": 0,
+      "forms_analyzed": 0
+    },
+    "open_redirect": {
+      "findings": [
+        {
+          "check": "Open Redirect Scan",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Tidak ditemukan Open Redirect (340 tests pada 5 halaman)",
+          "recommendation": "-"
+        }
+      ],
+      "tests_performed": 340,
+      "passed": 1,
+      "failed": 0
+    },
+    "cors": {
+      "findings": [
+        {
+          "check": "CORS Configuration Scan",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Tidak ditemukan CORS misconfiguration (6 tests pada 5 halaman)",
+          "recommendation": "-"
+        }
+      ],
+      "tests_performed": 6,
+      "pages_checked": 5,
+      "passed": 1,
+      "failed": 0
+    },
+    "http_methods": {
+      "findings": [
+        {
+          "check": "HTTP Method: PUT",
+          "status": "FAIL",
+          "severity": "HIGH",
+          "detail": "PUT method diterima server (HTTP 200) — File upload/overwrite — attacker bisa upload webshell atau overwrite file",
+          "recommendation": "Disable PUT method kecuali diperlukan untuk API (dan lindungi dengan autentikasi)"
+        },
+        {
+          "check": "HTTP Method: DELETE",
+          "status": "FAIL",
+          "severity": "HIGH",
+          "detail": "DELETE method diterima server (HTTP 200) — File deletion — attacker bisa menghapus file di server",
+          "recommendation": "Disable DELETE method kecuali diperlukan untuk API"
+        }
+      ],
+      "tests_performed": 5,
+      "passed": 2,
+      "failed": 2
+    },
+    "info_leak": {
+      "findings": [
+        {
+          "check": "Information Leak Scan",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Tidak ditemukan informasi sensitif di source code (5 halaman di-scan, 10 pattern types)",
+          "recommendation": "-"
+        }
+      ],
+      "passed": 1,
+      "failed": 0
+    },
+    "cookies": {
+      "findings": [
+        {
+          "check": "Cookie Security Audit",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Tidak ada cookie di-set pada 5 halaman",
+          "recommendation": "-"
+        }
+      ],
+      "passed": 1,
+      "failed": 0
+    },
+    "clickjacking": {
+      "findings": [
+        {
+          "check": "Clickjacking: /",
+          "status": "FAIL",
+          "severity": "MEDIUM",
+          "detail": "Halaman bisa di-embed dalam iframe (clickjacking). Missing: X-Frame-Options, CSP frame-ancestors. Attacker bisa overlay halaman ini dengan UI palsu.",
+          "recommendation": "Tambahkan X-Frame-Options: DENY (atau SAMEORIGIN) DAN Content-Security-Policy: frame-ancestors 'self'"
+        },
+        {
+          "check": "Clickjacking: /profil/",
+          "status": "FAIL",
+          "severity": "MEDIUM",
+          "detail": "Halaman bisa di-embed dalam iframe (clickjacking). Missing: X-Frame-Options, CSP frame-ancestors. Attacker bisa overlay halaman ini dengan UI palsu.",
+          "recommendation": "Tambahkan X-Frame-Options: DENY (atau SAMEORIGIN) DAN Content-Security-Policy: frame-ancestors 'self'"
+        },
+        {
+          "check": "Clickjacking: /produk/",
+          "status": "FAIL",
+          "severity": "MEDIUM",
+          "detail": "Halaman bisa di-embed dalam iframe (clickjacking). Missing: X-Frame-Options, CSP frame-ancestors. Attacker bisa overlay halaman ini dengan UI palsu.",
+          "recommendation": "Tambahkan X-Frame-Options: DENY (atau SAMEORIGIN) DAN Content-Security-Policy: frame-ancestors 'self'"
+        },
+        {
+          "check": "Clickjacking: /portofolio/",
+          "status": "FAIL",
+          "severity": "MEDIUM",
+          "detail": "Halaman bisa di-embed dalam iframe (clickjacking). Missing: X-Frame-Options, CSP frame-ancestors. Attacker bisa overlay halaman ini dengan UI palsu.",
+          "recommendation": "Tambahkan X-Frame-Options: DENY (atau SAMEORIGIN) DAN Content-Security-Policy: frame-ancestors 'self'"
+        },
+        {
+          "check": "Clickjacking: /berita/",
+          "status": "FAIL",
+          "severity": "MEDIUM",
+          "detail": "Halaman bisa di-embed dalam iframe (clickjacking). Missing: X-Frame-Options, CSP frame-ancestors. Attacker bisa overlay halaman ini dengan UI palsu.",
+          "recommendation": "Tambahkan X-Frame-Options: DENY (atau SAMEORIGIN) DAN Content-Security-Policy: frame-ancestors 'self'"
+        }
+      ],
+      "tests_performed": 5,
+      "pages_checked": 5,
+      "passed": 0,
+      "failed": 5
+    },
+    "dir_discovery": {
+      "findings": [
+        {
+          "check": "Directory: /phpmyadmin",
+          "status": "FAIL",
+          "severity": "HIGH",
+          "detail": "Path /phpmyadmin accessible (HTTP 301, 323 bytes)",
+          "recommendation": "Verifikasi apakah path ini perlu accessible publik. Blokir jika tidak diperlukan."
+        },
+        {
+          "check": "Directory: /phpmyadmin/",
+          "status": "FAIL",
+          "severity": "HIGH",
+          "detail": "Path /phpmyadmin/ accessible (HTTP 200, 20000 bytes)",
+          "recommendation": "Verifikasi apakah path ini perlu accessible publik. Blokir jika tidak diperlukan."
+        },
+        {
+          "check": "Directory: /admin/index.php",
+          "status": "FAIL",
+          "severity": "LOW",
+          "detail": "Path /admin/index.php accessible (HTTP 301, 0 bytes)",
+          "recommendation": "Verifikasi apakah path ini perlu accessible publik. Blokir jika tidak diperlukan."
+        },
+        {
+          "check": "Directory: /admin/",
+          "status": "FAIL",
+          "severity": "LOW",
+          "detail": "Path /admin/ accessible (HTTP 302, 0 bytes)",
+          "recommendation": "Verifikasi apakah path ini perlu accessible publik. Blokir jika tidak diperlukan."
+        },
+        {
+          "check": "Directory: /admin",
+          "status": "FAIL",
+          "severity": "LOW",
+          "detail": "Path /admin accessible (HTTP 302, 0 bytes)",
+          "recommendation": "Verifikasi apakah path ini perlu accessible publik. Blokir jika tidak diperlukan."
+        },
+        {
+          "check": "Directory: /dashboard",
+          "status": "FAIL",
+          "severity": "LOW",
+          "detail": "Path /dashboard accessible (HTTP 302, 0 bytes)",
+          "recommendation": "Verifikasi apakah path ini perlu accessible publik. Blokir jika tidak diperlukan."
+        },
+        {
+          "check": "Directory: /login",
+          "status": "FAIL",
+          "severity": "LOW",
+          "detail": "Path /login accessible (HTTP 302, 0 bytes)",
+          "recommendation": "Verifikasi apakah path ini perlu accessible publik. Blokir jika tidak diperlukan."
+        },
+        {
+          "check": "Directory: /wp-admin",
+          "status": "FAIL",
+          "severity": "LOW",
+          "detail": "Path /wp-admin accessible (HTTP 301, 321 bytes)",
+          "recommendation": "Verifikasi apakah path ini perlu accessible publik. Blokir jika tidak diperlukan."
+        },
+        {
+          "check": "Directory: /wp-content/uploads",
+          "status": "FAIL",
+          "severity": "LOW",
+          "detail": "Path /wp-content/uploads accessible (HTTP 301, 331 bytes)",
+          "recommendation": "Verifikasi apakah path ini perlu accessible publik. Blokir jika tidak diperlukan."
+        },
+        {
+          "check": "Directory: /wp-login.php",
+          "status": "FAIL",
+          "severity": "LOW",
+          "detail": "Path /wp-login.php accessible (HTTP 302, 0 bytes)",
+          "recommendation": "Verifikasi apakah path ini perlu accessible publik. Blokir jika tidak diperlukan."
+        },
+        {
+          "check": "Directory: /wp-json",
+          "status": "FAIL",
+          "severity": "LOW",
+          "detail": "Path /wp-json accessible (HTTP 200, 245443 bytes)",
+          "recommendation": "Verifikasi apakah path ini perlu accessible publik. Blokir jika tidak diperlukan."
+        },
+        {
+          "check": "Directory: /administrator/index.php",
+          "status": "FAIL",
+          "severity": "LOW",
+          "detail": "Path /administrator/index.php accessible (HTTP 301, 0 bytes)",
+          "recommendation": "Verifikasi apakah path ini perlu accessible publik. Blokir jika tidak diperlukan."
+        },
+        {
+          "check": "Directory: /readme.html",
+          "status": "FAIL",
+          "severity": "LOW",
+          "detail": "Path /readme.html accessible (HTTP 200, 7425 bytes)",
+          "recommendation": "Verifikasi apakah path ini perlu accessible publik. Blokir jika tidak diperlukan."
+        },
+        {
+          "check": "Directory: /robots.txt",
+          "status": "FAIL",
+          "severity": "LOW",
+          "detail": "Path /robots.txt accessible (HTTP 200, 114 bytes)",
+          "recommendation": "Verifikasi apakah path ini perlu accessible publik. Blokir jika tidak diperlukan."
+        },
+        {
+          "check": "Directory: /sitemap_index.xml",
+          "status": "FAIL",
+          "severity": "LOW",
+          "detail": "Path /sitemap_index.xml accessible (HTTP 200, 637 bytes)",
+          "recommendation": "Verifikasi apakah path ini perlu accessible publik. Blokir jika tidak diperlukan."
+        },
+        {
+          "check": "Directory: /wp-cron.php",
+          "status": "FAIL",
+          "severity": "LOW",
+          "detail": "Path /wp-cron.php accessible (HTTP 200, 0 bytes)",
+          "recommendation": "Verifikasi apakah path ini perlu accessible publik. Blokir jika tidak diperlukan."
+        },
+        {
+          "check": "Directory: /wp-config.php.bak",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /wp-config.php.bak exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /.htaccess",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /.htaccess exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /.htpasswd",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /.htpasswd exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        }
+      ],
+      "passed": 3,
+      "failed": 16
+    },
+    "tech": {
+      "findings": [
+        {
+          "check": "Technology Stack",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Terdeteksi 5 teknologi: Server cloudflare, CDN Cloudflare, WordPress 6.8.2, Font Awesome, Tailwind CSS",
+          "recommendation": "-"
+        }
+      ],
+      "passed": 1,
+      "failed": 0
+    },
+    "security_txt": {
+      "findings": [
+        {
+          "check": "security.txt (missing)",
+          "status": "FAIL",
+          "severity": "LOW",
+          "detail": "security.txt tidak ditemukan — best practice adalah menyediakan file ini agar security researcher tahu cara melaporkan kerentanan",
+          "recommendation": "Buat file /.well-known/security.txt sesuai RFC 9116. Minimal berisi Contact: dan Expires: fields."
+        },
+        {
+          "check": "robots.txt (info disclosure)",
+          "status": "FAIL",
+          "severity": "LOW",
+          "detail": "robots.txt mengexpose 1 path sensitif: /wp-admin/. Attacker bisa menggunakan ini sebagai peta untuk menemukan halaman tersembunyi.",
+          "recommendation": "Pertimbangkan untuk tidak mendaftarkan path sensitif di robots.txt. Gunakan autentikasi sebagai proteksi utama, bukan security by obscurity."
+        }
+      ],
+      "passed": 0,
+      "failed": 2
+    },
+    "waf": {
+      "findings": [
+        {
+          "check": "WAF: Cloudflare detected",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Website dilindungi oleh Cloudflare. Evidence: Header: Server, Header: CF-RAY",
+          "recommendation": "-"
+        }
+      ],
+      "passed": 1,
+      "failed": 0
+    },
+    "ports": {
+      "hostname": "iaccess.id",
+      "ip": "172.67.168.75",
+      "mode": "extended",
+      "scan_label": "Extended scan (top 1000)",
+      "findings": [
+        {
+          "check": "Port 80/HTTP",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Port 80 (HTTP) terbuka — web server (normal)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Port 443/HTTPS",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Port 443 (HTTPS) terbuka — web server (normal)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Port 8080/HTTP-Alt",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Port 8080 (HTTP-Alt) terbuka — web server (normal)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Port 8443/HTTPS-Alt",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Port 8443 (HTTPS-Alt) terbuka — web server (normal)",
+          "recommendation": "-"
+        }
+      ],
+      "open_ports": [
+        {
+          "port": 80,
+          "service": "HTTP"
+        },
+        {
+          "port": 443,
+          "service": "HTTPS"
+        },
+        {
+          "port": 8080,
+          "service": "HTTP-Alt"
+        },
+        {
+          "port": 8443,
+          "service": "HTTPS-Alt"
+        }
+      ],
+      "ports_scanned": 667,
+      "passed": 4,
+      "failed": 0
+    }
+  },
+  "all_findings": [
+    {
+      "check": "Strict-Transport-Security",
+      "status": "FAIL",
+      "severity": "HIGH",
+      "detail": "Memaksa browser selalu menggunakan HTTPS",
+      "recommendation": "Tambahkan header: Strict-Transport-Security: max-age=31536000; includeSubDomains"
+    },
+    {
+      "check": "Content-Security-Policy",
+      "status": "FAIL",
+      "severity": "HIGH",
+      "detail": "Mencegah XSS dan injeksi konten berbahaya",
+      "recommendation": "Tambahkan header CSP yang sesuai. Minimal: Content-Security-Policy: default-src 'self'"
+    },
+    {
+      "check": "X-Frame-Options",
+      "status": "FAIL",
+      "severity": "MEDIUM",
+      "detail": "Mencegah clickjacking via iframe",
+      "recommendation": "Tambahkan header: X-Frame-Options: DENY atau SAMEORIGIN"
+    },
+    {
+      "check": "X-Content-Type-Options",
+      "status": "FAIL",
+      "severity": "MEDIUM",
+      "detail": "Mencegah MIME-type sniffing",
+      "recommendation": "Tambahkan header: X-Content-Type-Options: nosniff"
+    },
+    {
+      "check": "X-XSS-Protection",
+      "status": "FAIL",
+      "severity": "LOW",
+      "detail": "Mengaktifkan filter XSS bawaan browser (legacy)",
+      "recommendation": "Tambahkan header: X-XSS-Protection: 1; mode=block (atau gunakan CSP sebagai pengganti)"
+    },
+    {
+      "check": "Referrer-Policy",
+      "status": "FAIL",
+      "severity": "LOW",
+      "detail": "Mengontrol informasi referrer yang dikirim browser",
+      "recommendation": "Tambahkan header: Referrer-Policy: strict-origin-when-cross-origin"
+    },
+    {
+      "check": "Permissions-Policy",
+      "status": "FAIL",
+      "severity": "LOW",
+      "detail": "Mengontrol akses fitur browser (kamera, mikrofon, geolokasi)",
+      "recommendation": "Tambahkan header: Permissions-Policy: geolocation=(), camera=(), microphone=()"
+    },
+    {
+      "check": "Server (Info Leak)",
+      "status": "FAIL",
+      "severity": "LOW",
+      "detail": "Terdeteksi: cloudflare — Membocorkan versi web server (misal: Apache/2.4.41)",
+      "recommendation": "Sembunyikan atau hapus header Server dari response"
+    },
+    {
+      "check": "X-Powered-By (Info Leak)",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Tidak ditemukan (bagus)",
+      "recommendation": "-"
+    },
+    {
+      "check": "HTTP → HTTPS Redirect",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "HTTP redirect ke HTTPS (301)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Validitas Sertifikat SSL",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Sertifikat valid dan terpercaya",
+      "recommendation": "-"
+    },
+    {
+      "check": "Masa Berlaku Sertifikat",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Sertifikat berlaku 80 hari lagi (Aug  9 14:43:16 2026 GMT)",
+      "recommendation": "Jadwalkan pembaruan sertifikat"
+    },
+    {
+      "check": "Versi TLS",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Server menggunakan TLSv1.3",
+      "recommendation": "-"
+    },
+    {
+      "check": "Cipher Strength",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Cipher: TLS_AES_256_GCM_SHA384 (256-bit)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Certificate Issuer",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Diterbitkan oleh: Google Trust Services (WE1)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Domain Match (SAN)",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Domain 'iaccess.id' tercantum di SAN sertifikat",
+      "recommendation": "-"
+    },
+    {
+      "check": "File: /phpmyadmin/",
+      "status": "FAIL",
+      "severity": "HIGH",
+      "category": "Admin Panel",
+      "detail": "EXPOSED! phpMyAdmin terdeteksi — akses langsung ke manajemen database (HTTP 200, 20000 bytes)",
+      "recommendation": "Hapus phpMyAdmin dari production atau batasi akses via IP allowlist",
+      "result_type": "exposed",
+      "_content_length": 20000
+    },
+    {
+      "check": "File: /wp-config.php",
+      "status": "PASS",
+      "severity": "INFO",
+      "category": "CMS Config",
+      "detail": "File ada tapi akses diblokir (HTTP 403) — server melindungi dengan benar",
+      "recommendation": "-",
+      "result_type": "protected"
+    },
+    {
+      "check": "File: /.htaccess",
+      "status": "PASS",
+      "severity": "INFO",
+      "category": "Server Config",
+      "detail": "File ada tapi akses diblokir (HTTP 403) — server melindungi dengan benar",
+      "recommendation": "-",
+      "result_type": "protected"
+    },
+    {
+      "check": "File: /wp-config.php~",
+      "status": "PASS",
+      "severity": "INFO",
+      "category": "CMS Config",
+      "detail": "File ada tapi akses diblokir (HTTP 403) — server melindungi dengan benar",
+      "recommendation": "-",
+      "result_type": "protected"
+    },
+    {
+      "check": "File: /wp-config.php.bak",
+      "status": "PASS",
+      "severity": "INFO",
+      "category": "CMS Config",
+      "detail": "File ada tapi akses diblokir (HTTP 403) — server melindungi dengan benar",
+      "recommendation": "-",
+      "result_type": "protected"
+    },
+    {
+      "check": "CMS Detection",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "CMS terdeteksi: WordPress versi 6.8.2",
+      "recommendation": "-"
+    },
+    {
+      "check": "WordPress Version Check",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "WordPress versi 6.8.2 — kemungkinan up to date",
+      "recommendation": "-"
+    },
+    {
+      "check": "Info Disclosure: /readme.html",
+      "status": "FAIL",
+      "severity": "LOW",
+      "detail": "File '/readme.html' accessible — membocorkan informasi versi WordPress",
+      "recommendation": "Blokir akses ke /readme.html via konfigurasi web server"
+    },
+    {
+      "check": "WordPress Plugin Enumeration",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "2 plugin terdeteksi: Elementor v3.30.3, LiteSpeed Cache v7.2",
+      "recommendation": "-"
+    },
+    {
+      "check": "Info Disclosure: Elementor readme.txt",
+      "status": "FAIL",
+      "severity": "LOW",
+      "detail": "File readme.txt plugin Elementor accessible — membocorkan versi plugin",
+      "recommendation": "Blokir akses ke /wp-content/plugins/elementor/readme.txt"
+    },
+    {
+      "check": "Info Disclosure: LiteSpeed Cache readme.txt",
+      "status": "FAIL",
+      "severity": "LOW",
+      "detail": "File readme.txt plugin LiteSpeed Cache accessible — membocorkan versi plugin",
+      "recommendation": "Blokir akses ke /wp-content/plugins/litespeed-cache/readme.txt"
+    },
+    {
+      "check": "WordPress Active Theme",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Active theme: Blockskit Base v1.1.3",
+      "recommendation": "-"
+    },
+    {
+      "check": "Info Disclosure: Theme style.css",
+      "status": "FAIL",
+      "severity": "LOW",
+      "detail": "File style.css theme accessible — membocorkan nama dan versi theme",
+      "recommendation": "Blokir akses langsung ke style.css theme"
+    },
+    {
+      "check": "XML-RPC Endpoint",
+      "status": "FAIL",
+      "severity": "MEDIUM",
+      "detail": "xmlrpc.php aktif — bisa disalahgunakan untuk brute force dan DDoS amplification",
+      "recommendation": "Disable XML-RPC jika tidak digunakan, atau batasi aksesnya"
+    },
+    {
+      "check": "User Enumeration",
+      "status": "FAIL",
+      "severity": "MEDIUM",
+      "detail": "Username admin teridentifikasi: 'hylmimuhammadfiarymahdi' via /?author=1",
+      "recommendation": "Disable user enumeration via rewrite rules atau plugin keamanan. Hindari menggunakan username 'admin'."
+    },
+    {
+      "check": "REST API User Enumeration",
+      "status": "FAIL",
+      "severity": "MEDIUM",
+      "detail": "REST API /wp-json/wp/v2/users mengekspos daftar user — attacker bisa enumerate username dengan mudah",
+      "recommendation": "Disable atau batasi akses ke REST API users endpoint. Pakai plugin seperti Disable REST API atau filter di functions.php"
+    },
+    {
+      "check": "Advanced SQL Injection Scan",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Tidak ditemukan SQLi (0 tests: 0 error-based, 0 boolean-based, 0 time-based)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Reflected XSS Scan",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Tidak ditemukan Reflected XSS di 5 halaman (0 injection points tested)",
+      "recommendation": "-"
+    },
+    {
+      "check": "CSRF Form Analysis",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Tidak ada form ditemukan di halaman ini",
+      "recommendation": "-"
+    },
+    {
+      "check": "CSRF Form Analysis",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Tidak ada form ditemukan di halaman ini",
+      "recommendation": "-"
+    },
+    {
+      "check": "CSRF Form Analysis",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Tidak ada form ditemukan di halaman ini",
+      "recommendation": "-"
+    },
+    {
+      "check": "CSRF Form Analysis",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Tidak ada form ditemukan di halaman ini",
+      "recommendation": "-"
+    },
+    {
+      "check": "CSRF Form Analysis",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Tidak ada form ditemukan di halaman ini",
+      "recommendation": "-"
+    },
+    {
+      "check": "Open Redirect Scan",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Tidak ditemukan Open Redirect (340 tests pada 5 halaman)",
+      "recommendation": "-"
+    },
+    {
+      "check": "CORS Configuration Scan",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Tidak ditemukan CORS misconfiguration (6 tests pada 5 halaman)",
+      "recommendation": "-"
+    },
+    {
+      "check": "HTTP Method: PUT",
+      "status": "FAIL",
+      "severity": "HIGH",
+      "detail": "PUT method diterima server (HTTP 200) — File upload/overwrite — attacker bisa upload webshell atau overwrite file",
+      "recommendation": "Disable PUT method kecuali diperlukan untuk API (dan lindungi dengan autentikasi)"
+    },
+    {
+      "check": "HTTP Method: DELETE",
+      "status": "FAIL",
+      "severity": "HIGH",
+      "detail": "DELETE method diterima server (HTTP 200) — File deletion — attacker bisa menghapus file di server",
+      "recommendation": "Disable DELETE method kecuali diperlukan untuk API"
+    },
+    {
+      "check": "Information Leak Scan",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Tidak ditemukan informasi sensitif di source code (5 halaman di-scan, 10 pattern types)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Cookie Security Audit",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Tidak ada cookie di-set pada 5 halaman",
+      "recommendation": "-"
+    },
+    {
+      "check": "Clickjacking: /",
+      "status": "FAIL",
+      "severity": "MEDIUM",
+      "detail": "Halaman bisa di-embed dalam iframe (clickjacking). Missing: X-Frame-Options, CSP frame-ancestors. Attacker bisa overlay halaman ini dengan UI palsu.",
+      "recommendation": "Tambahkan X-Frame-Options: DENY (atau SAMEORIGIN) DAN Content-Security-Policy: frame-ancestors 'self'"
+    },
+    {
+      "check": "Clickjacking: /profil/",
+      "status": "FAIL",
+      "severity": "MEDIUM",
+      "detail": "Halaman bisa di-embed dalam iframe (clickjacking). Missing: X-Frame-Options, CSP frame-ancestors. Attacker bisa overlay halaman ini dengan UI palsu.",
+      "recommendation": "Tambahkan X-Frame-Options: DENY (atau SAMEORIGIN) DAN Content-Security-Policy: frame-ancestors 'self'"
+    },
+    {
+      "check": "Clickjacking: /produk/",
+      "status": "FAIL",
+      "severity": "MEDIUM",
+      "detail": "Halaman bisa di-embed dalam iframe (clickjacking). Missing: X-Frame-Options, CSP frame-ancestors. Attacker bisa overlay halaman ini dengan UI palsu.",
+      "recommendation": "Tambahkan X-Frame-Options: DENY (atau SAMEORIGIN) DAN Content-Security-Policy: frame-ancestors 'self'"
+    },
+    {
+      "check": "Clickjacking: /portofolio/",
+      "status": "FAIL",
+      "severity": "MEDIUM",
+      "detail": "Halaman bisa di-embed dalam iframe (clickjacking). Missing: X-Frame-Options, CSP frame-ancestors. Attacker bisa overlay halaman ini dengan UI palsu.",
+      "recommendation": "Tambahkan X-Frame-Options: DENY (atau SAMEORIGIN) DAN Content-Security-Policy: frame-ancestors 'self'"
+    },
+    {
+      "check": "Clickjacking: /berita/",
+      "status": "FAIL",
+      "severity": "MEDIUM",
+      "detail": "Halaman bisa di-embed dalam iframe (clickjacking). Missing: X-Frame-Options, CSP frame-ancestors. Attacker bisa overlay halaman ini dengan UI palsu.",
+      "recommendation": "Tambahkan X-Frame-Options: DENY (atau SAMEORIGIN) DAN Content-Security-Policy: frame-ancestors 'self'"
+    },
+    {
+      "check": "Directory: /phpmyadmin",
+      "status": "FAIL",
+      "severity": "HIGH",
+      "detail": "Path /phpmyadmin accessible (HTTP 301, 323 bytes)",
+      "recommendation": "Verifikasi apakah path ini perlu accessible publik. Blokir jika tidak diperlukan."
+    },
+    {
+      "check": "Directory: /phpmyadmin/",
+      "status": "FAIL",
+      "severity": "HIGH",
+      "detail": "Path /phpmyadmin/ accessible (HTTP 200, 20000 bytes)",
+      "recommendation": "Verifikasi apakah path ini perlu accessible publik. Blokir jika tidak diperlukan."
+    },
+    {
+      "check": "Directory: /admin/index.php",
+      "status": "FAIL",
+      "severity": "LOW",
+      "detail": "Path /admin/index.php accessible (HTTP 301, 0 bytes)",
+      "recommendation": "Verifikasi apakah path ini perlu accessible publik. Blokir jika tidak diperlukan."
+    },
+    {
+      "check": "Directory: /admin/",
+      "status": "FAIL",
+      "severity": "LOW",
+      "detail": "Path /admin/ accessible (HTTP 302, 0 bytes)",
+      "recommendation": "Verifikasi apakah path ini perlu accessible publik. Blokir jika tidak diperlukan."
+    },
+    {
+      "check": "Directory: /admin",
+      "status": "FAIL",
+      "severity": "LOW",
+      "detail": "Path /admin accessible (HTTP 302, 0 bytes)",
+      "recommendation": "Verifikasi apakah path ini perlu accessible publik. Blokir jika tidak diperlukan."
+    },
+    {
+      "check": "Directory: /dashboard",
+      "status": "FAIL",
+      "severity": "LOW",
+      "detail": "Path /dashboard accessible (HTTP 302, 0 bytes)",
+      "recommendation": "Verifikasi apakah path ini perlu accessible publik. Blokir jika tidak diperlukan."
+    },
+    {
+      "check": "Directory: /login",
+      "status": "FAIL",
+      "severity": "LOW",
+      "detail": "Path /login accessible (HTTP 302, 0 bytes)",
+      "recommendation": "Verifikasi apakah path ini perlu accessible publik. Blokir jika tidak diperlukan."
+    },
+    {
+      "check": "Directory: /wp-admin",
+      "status": "FAIL",
+      "severity": "LOW",
+      "detail": "Path /wp-admin accessible (HTTP 301, 321 bytes)",
+      "recommendation": "Verifikasi apakah path ini perlu accessible publik. Blokir jika tidak diperlukan."
+    },
+    {
+      "check": "Directory: /wp-content/uploads",
+      "status": "FAIL",
+      "severity": "LOW",
+      "detail": "Path /wp-content/uploads accessible (HTTP 301, 331 bytes)",
+      "recommendation": "Verifikasi apakah path ini perlu accessible publik. Blokir jika tidak diperlukan."
+    },
+    {
+      "check": "Directory: /wp-login.php",
+      "status": "FAIL",
+      "severity": "LOW",
+      "detail": "Path /wp-login.php accessible (HTTP 302, 0 bytes)",
+      "recommendation": "Verifikasi apakah path ini perlu accessible publik. Blokir jika tidak diperlukan."
+    },
+    {
+      "check": "Directory: /wp-json",
+      "status": "FAIL",
+      "severity": "LOW",
+      "detail": "Path /wp-json accessible (HTTP 200, 245443 bytes)",
+      "recommendation": "Verifikasi apakah path ini perlu accessible publik. Blokir jika tidak diperlukan."
+    },
+    {
+      "check": "Directory: /administrator/index.php",
+      "status": "FAIL",
+      "severity": "LOW",
+      "detail": "Path /administrator/index.php accessible (HTTP 301, 0 bytes)",
+      "recommendation": "Verifikasi apakah path ini perlu accessible publik. Blokir jika tidak diperlukan."
+    },
+    {
+      "check": "Directory: /readme.html",
+      "status": "FAIL",
+      "severity": "LOW",
+      "detail": "Path /readme.html accessible (HTTP 200, 7425 bytes)",
+      "recommendation": "Verifikasi apakah path ini perlu accessible publik. Blokir jika tidak diperlukan."
+    },
+    {
+      "check": "Directory: /robots.txt",
+      "status": "FAIL",
+      "severity": "LOW",
+      "detail": "Path /robots.txt accessible (HTTP 200, 114 bytes)",
+      "recommendation": "Verifikasi apakah path ini perlu accessible publik. Blokir jika tidak diperlukan."
+    },
+    {
+      "check": "Directory: /sitemap_index.xml",
+      "status": "FAIL",
+      "severity": "LOW",
+      "detail": "Path /sitemap_index.xml accessible (HTTP 200, 637 bytes)",
+      "recommendation": "Verifikasi apakah path ini perlu accessible publik. Blokir jika tidak diperlukan."
+    },
+    {
+      "check": "Directory: /wp-cron.php",
+      "status": "FAIL",
+      "severity": "LOW",
+      "detail": "Path /wp-cron.php accessible (HTTP 200, 0 bytes)",
+      "recommendation": "Verifikasi apakah path ini perlu accessible publik. Blokir jika tidak diperlukan."
+    },
+    {
+      "check": "Directory: /wp-config.php.bak",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /wp-config.php.bak exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /.htaccess",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /.htaccess exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /.htpasswd",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /.htpasswd exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Technology Stack",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Terdeteksi 5 teknologi: Server cloudflare, CDN Cloudflare, WordPress 6.8.2, Font Awesome, Tailwind CSS",
+      "recommendation": "-"
+    },
+    {
+      "check": "security.txt (missing)",
+      "status": "FAIL",
+      "severity": "LOW",
+      "detail": "security.txt tidak ditemukan — best practice adalah menyediakan file ini agar security researcher tahu cara melaporkan kerentanan",
+      "recommendation": "Buat file /.well-known/security.txt sesuai RFC 9116. Minimal berisi Contact: dan Expires: fields."
+    },
+    {
+      "check": "robots.txt (info disclosure)",
+      "status": "FAIL",
+      "severity": "LOW",
+      "detail": "robots.txt mengexpose 1 path sensitif: /wp-admin/. Attacker bisa menggunakan ini sebagai peta untuk menemukan halaman tersembunyi.",
+      "recommendation": "Pertimbangkan untuk tidak mendaftarkan path sensitif di robots.txt. Gunakan autentikasi sebagai proteksi utama, bukan security by obscurity."
+    },
+    {
+      "check": "WAF: Cloudflare detected",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Website dilindungi oleh Cloudflare. Evidence: Header: Server, Header: CF-RAY",
+      "recommendation": "-"
+    },
+    {
+      "check": "Port 80/HTTP",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Port 80 (HTTP) terbuka — web server (normal)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Port 443/HTTPS",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Port 443 (HTTPS) terbuka — web server (normal)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Port 8080/HTTP-Alt",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Port 8080 (HTTP-Alt) terbuka — web server (normal)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Port 8443/HTTPS-Alt",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Port 8443 (HTTPS-Alt) terbuka — web server (normal)",
+      "recommendation": "-"
+    }
+  ],
+  "statistics": {
+    "total_checks": 79,
+    "total_passed": 68,
+    "total_failed": 41
+  }
+}

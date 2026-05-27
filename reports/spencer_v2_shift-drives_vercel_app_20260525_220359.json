@@ -1,0 +1,3574 @@
+{
+  "scan_info": {
+    "tool": "SpencerWeb v2.0",
+    "author": "SpencerWeb Security Audit Tool",
+    "method": "OWASP Top 10 + CVSS Scoring",
+    "timestamp": "2026-05-25T22:03:59.066400",
+    "target": "https://shift-drives.vercel.app/",
+    "scan_duration_seconds": 195.99
+  },
+  "crawl_info": {
+    "pages_crawled": 10,
+    "forms_found": 0,
+    "urls_with_params": 0,
+    "pages_failed": 0
+  },
+  "grade": {
+    "grade": "D",
+    "score": 48,
+    "severity_count": {
+      "CRITICAL": 0,
+      "HIGH": 1,
+      "MEDIUM": 10,
+      "LOW": 5,
+      "INFO": 0
+    },
+    "summary": "1 HIGH, 10 MEDIUM, 5 LOW"
+  },
+  "modules": {
+    "headers": {
+      "findings": [
+        {
+          "check": "Strict-Transport-Security",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Ditemukan: max-age=63072000; includeSubDomains; preload",
+          "recommendation": "-"
+        },
+        {
+          "check": "Content-Security-Policy",
+          "status": "FAIL",
+          "severity": "HIGH",
+          "detail": "Mencegah XSS dan injeksi konten berbahaya",
+          "recommendation": "Tambahkan header CSP yang sesuai. Minimal: Content-Security-Policy: default-src 'self'"
+        },
+        {
+          "check": "X-Frame-Options",
+          "status": "FAIL",
+          "severity": "MEDIUM",
+          "detail": "Mencegah clickjacking via iframe",
+          "recommendation": "Tambahkan header: X-Frame-Options: DENY atau SAMEORIGIN"
+        },
+        {
+          "check": "X-Content-Type-Options",
+          "status": "FAIL",
+          "severity": "MEDIUM",
+          "detail": "Mencegah MIME-type sniffing",
+          "recommendation": "Tambahkan header: X-Content-Type-Options: nosniff"
+        },
+        {
+          "check": "X-XSS-Protection",
+          "status": "FAIL",
+          "severity": "LOW",
+          "detail": "Mengaktifkan filter XSS bawaan browser (legacy)",
+          "recommendation": "Tambahkan header: X-XSS-Protection: 1; mode=block (atau gunakan CSP sebagai pengganti)"
+        },
+        {
+          "check": "Referrer-Policy",
+          "status": "FAIL",
+          "severity": "LOW",
+          "detail": "Mengontrol informasi referrer yang dikirim browser",
+          "recommendation": "Tambahkan header: Referrer-Policy: strict-origin-when-cross-origin"
+        },
+        {
+          "check": "Permissions-Policy",
+          "status": "FAIL",
+          "severity": "LOW",
+          "detail": "Mengontrol akses fitur browser (kamera, mikrofon, geolokasi)",
+          "recommendation": "Tambahkan header: Permissions-Policy: geolocation=(), camera=(), microphone=()"
+        },
+        {
+          "check": "Server (Info Leak)",
+          "status": "FAIL",
+          "severity": "LOW",
+          "detail": "Terdeteksi: Vercel — Membocorkan versi web server (misal: Apache/2.4.41)",
+          "recommendation": "Sembunyikan atau hapus header Server dari response"
+        },
+        {
+          "check": "X-Powered-By (Info Leak)",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Tidak ditemukan (bagus)",
+          "recommendation": "-"
+        },
+        {
+          "check": "HTTP → HTTPS Redirect",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "HTTP redirect ke HTTPS (308)",
+          "recommendation": "-"
+        }
+      ],
+      "raw_headers": {
+        "Access-Control-Allow-Origin": "*",
+        "Age": "112319",
+        "Cache-Control": "public, max-age=0, must-revalidate",
+        "Content-Disposition": "inline",
+        "Content-Encoding": "gzip",
+        "Content-Type": "text/html; charset=utf-8",
+        "Date": "Mon, 25 May 2026 15:00:52 GMT",
+        "Etag": "W/\"bfffc63acf76b139a43421e147960d94\"",
+        "Server": "Vercel",
+        "Strict-Transport-Security": "max-age=63072000; includeSubDomains; preload",
+        "Vary": "RSC, Next-Router-State-Tree, Next-Router-Prefetch",
+        "X-Matched-Path": "/",
+        "X-Vercel-Cache": "HIT",
+        "X-Vercel-Id": "sin1::j6tcq-1779721252236-d02bedbae719",
+        "Transfer-Encoding": "chunked"
+      },
+      "passed": 3,
+      "failed": 7
+    },
+    "ssl": {
+      "hostname": "shift-drives.vercel.app",
+      "tls_version": "TLSv1.3",
+      "findings": [
+        {
+          "check": "Validitas Sertifikat SSL",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Sertifikat valid dan terpercaya",
+          "recommendation": "-"
+        },
+        {
+          "check": "Masa Berlaku Sertifikat",
+          "status": "PASS",
+          "severity": "LOW",
+          "detail": "Sertifikat berlaku 62 hari lagi (Jul 27 02:04:42 2026 GMT)",
+          "recommendation": "Jadwalkan pembaruan sertifikat"
+        },
+        {
+          "check": "Versi TLS",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Server menggunakan TLSv1.3",
+          "recommendation": "-"
+        },
+        {
+          "check": "Cipher Strength",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Cipher: TLS_AES_128_GCM_SHA256 (128-bit)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Certificate Issuer",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Diterbitkan oleh: Google Trust Services (WR1)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Domain Match (SAN)",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Domain 'shift-drives.vercel.app' tercantum di SAN sertifikat",
+          "recommendation": "-"
+        }
+      ],
+      "cert_info": {
+        "subject_commonName": "*.vercel.app",
+        "issuer_countryName": "US",
+        "issuer_organizationName": "Google Trust Services",
+        "issuer_commonName": "WR1",
+        "notBefore": "Apr 28 02:04:43 2026 GMT",
+        "notAfter": "Jul 27 02:04:42 2026 GMT",
+        "serialNumber": "F47D82F2B89087C40EC4B7D4D324B294",
+        "san": [
+          "*.vercel.app",
+          "vercel.app"
+        ]
+      },
+      "passed": 6,
+      "failed": 0
+    },
+    "sensitive_files": {
+      "findings": [
+        {
+          "check": "File: /wp-config.php",
+          "status": "PASS",
+          "severity": "INFO",
+          "category": "CMS Config",
+          "detail": "File ada tapi akses diblokir (HTTP 403) — server melindungi dengan benar",
+          "recommendation": "-",
+          "result_type": "protected"
+        },
+        {
+          "check": "File: /wp-config.php.bak",
+          "status": "PASS",
+          "severity": "INFO",
+          "category": "CMS Config",
+          "detail": "File ada tapi akses diblokir (HTTP 403) — server melindungi dengan benar",
+          "recommendation": "-",
+          "result_type": "protected"
+        },
+        {
+          "check": "File: /wp-config.php~",
+          "status": "PASS",
+          "severity": "INFO",
+          "category": "CMS Config",
+          "detail": "File ada tapi akses diblokir (HTTP 403) — server melindungi dengan benar",
+          "recommendation": "-",
+          "result_type": "protected"
+        },
+        {
+          "check": "File: /configuration.php",
+          "status": "PASS",
+          "severity": "INFO",
+          "category": "CMS Config",
+          "detail": "File ada tapi akses diblokir (HTTP 403) — server melindungi dengan benar",
+          "recommendation": "-",
+          "result_type": "protected"
+        },
+        {
+          "check": "File: /phpinfo.php",
+          "status": "PASS",
+          "severity": "INFO",
+          "category": "Info Disclosure",
+          "detail": "File ada tapi akses diblokir (HTTP 403) — server melindungi dengan benar",
+          "recommendation": "-",
+          "result_type": "protected"
+        },
+        {
+          "check": "File: /info.php",
+          "status": "PASS",
+          "severity": "INFO",
+          "category": "Info Disclosure",
+          "detail": "File ada tapi akses diblokir (HTTP 403) — server melindungi dengan benar",
+          "recommendation": "-",
+          "result_type": "protected"
+        }
+      ],
+      "total_paths_checked": 35,
+      "passed": 35,
+      "failed": 0
+    },
+    "cms": {
+      "cms": "WordPress",
+      "version": null,
+      "findings": [
+        {
+          "check": "CMS Detection",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "CMS terdeteksi: WordPress (versi tidak terdeteksi)",
+          "recommendation": "-"
+        }
+      ],
+      "passed": 1,
+      "failed": 0
+    },
+    "wordpress": {
+      "is_wordpress": true,
+      "findings": [
+        {
+          "check": "WordPress Plugin Enumeration",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Tidak ada plugin populer terdeteksi dari 50 plugin yang di-scan",
+          "recommendation": "-"
+        }
+      ],
+      "plugins_found": [],
+      "themes_found": [],
+      "passed": 1,
+      "failed": 0
+    },
+    "sqli_advanced": {
+      "findings": [
+        {
+          "check": "Advanced SQL Injection Scan",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Tidak ditemukan SQLi (0 tests: 0 error-based, 0 boolean-based, 0 time-based)",
+          "recommendation": "-"
+        }
+      ],
+      "tests_performed": {
+        "error_based": 0,
+        "boolean_based": 0,
+        "time_based": 0
+      },
+      "total_tests": 0,
+      "passed": 1,
+      "failed": 0
+    },
+    "xss": {
+      "findings": [
+        {
+          "check": "Reflected XSS Scan",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Tidak ditemukan Reflected XSS di 10 halaman (0 injection points tested)",
+          "recommendation": "-"
+        }
+      ],
+      "passed": 1,
+      "failed": 0,
+      "injection_points_tested": 0
+    },
+    "csrf": {
+      "findings": [
+        {
+          "check": "CSRF Form Analysis",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Tidak ada form rentan CSRF di 10 halaman",
+          "recommendation": "-"
+        }
+      ],
+      "passed": 1,
+      "failed": 0,
+      "forms_analyzed": 0
+    },
+    "open_redirect": {
+      "findings": [
+        {
+          "check": "Open Redirect Scan",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Tidak ditemukan Open Redirect (680 tests pada 10 halaman)",
+          "recommendation": "-"
+        }
+      ],
+      "tests_performed": 680,
+      "passed": 1,
+      "failed": 0
+    },
+    "cors": {
+      "findings": [
+        {
+          "check": "CORS Configuration Scan",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Tidak ditemukan CORS misconfiguration (11 tests pada 10 halaman)",
+          "recommendation": "-"
+        }
+      ],
+      "tests_performed": 11,
+      "pages_checked": 10,
+      "passed": 1,
+      "failed": 0
+    },
+    "http_methods": {
+      "findings": [
+        {
+          "check": "HTTP Method Security",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Tidak ada HTTP method berbahaya yang aktif (5 methods tested)",
+          "recommendation": "-"
+        }
+      ],
+      "tests_performed": 5,
+      "passed": 5,
+      "failed": 0
+    },
+    "info_leak": {
+      "findings": [
+        {
+          "check": "Information Leak Scan",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Tidak ditemukan informasi sensitif di source code (10 halaman di-scan, 10 pattern types)",
+          "recommendation": "-"
+        }
+      ],
+      "passed": 1,
+      "failed": 0
+    },
+    "cookies": {
+      "findings": [
+        {
+          "check": "Cookie Security Audit",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Tidak ada cookie di-set pada 8 halaman",
+          "recommendation": "-"
+        }
+      ],
+      "passed": 1,
+      "failed": 0
+    },
+    "clickjacking": {
+      "findings": [
+        {
+          "check": "Clickjacking: /",
+          "status": "FAIL",
+          "severity": "MEDIUM",
+          "detail": "Halaman bisa di-embed dalam iframe (clickjacking). Missing: X-Frame-Options, CSP frame-ancestors. Attacker bisa overlay halaman ini dengan UI palsu.",
+          "recommendation": "Tambahkan X-Frame-Options: DENY (atau SAMEORIGIN) DAN Content-Security-Policy: frame-ancestors 'self'"
+        },
+        {
+          "check": "Clickjacking: /layanan/website-development",
+          "status": "FAIL",
+          "severity": "MEDIUM",
+          "detail": "Halaman bisa di-embed dalam iframe (clickjacking). Missing: X-Frame-Options, CSP frame-ancestors. Attacker bisa overlay halaman ini dengan UI palsu.",
+          "recommendation": "Tambahkan X-Frame-Options: DENY (atau SAMEORIGIN) DAN Content-Security-Policy: frame-ancestors 'self'"
+        },
+        {
+          "check": "Clickjacking: /layanan/mobile-app",
+          "status": "FAIL",
+          "severity": "MEDIUM",
+          "detail": "Halaman bisa di-embed dalam iframe (clickjacking). Missing: X-Frame-Options, CSP frame-ancestors. Attacker bisa overlay halaman ini dengan UI palsu.",
+          "recommendation": "Tambahkan X-Frame-Options: DENY (atau SAMEORIGIN) DAN Content-Security-Policy: frame-ancestors 'self'"
+        },
+        {
+          "check": "Clickjacking: /layanan/security-tools",
+          "status": "FAIL",
+          "severity": "MEDIUM",
+          "detail": "Halaman bisa di-embed dalam iframe (clickjacking). Missing: X-Frame-Options, CSP frame-ancestors. Attacker bisa overlay halaman ini dengan UI palsu.",
+          "recommendation": "Tambahkan X-Frame-Options: DENY (atau SAMEORIGIN) DAN Content-Security-Policy: frame-ancestors 'self'"
+        },
+        {
+          "check": "Clickjacking: /layanan/chatbot-automation",
+          "status": "FAIL",
+          "severity": "MEDIUM",
+          "detail": "Halaman bisa di-embed dalam iframe (clickjacking). Missing: X-Frame-Options, CSP frame-ancestors. Attacker bisa overlay halaman ini dengan UI palsu.",
+          "recommendation": "Tambahkan X-Frame-Options: DENY (atau SAMEORIGIN) DAN Content-Security-Policy: frame-ancestors 'self'"
+        },
+        {
+          "check": "Clickjacking: /layanan/iot-solutions",
+          "status": "FAIL",
+          "severity": "MEDIUM",
+          "detail": "Halaman bisa di-embed dalam iframe (clickjacking). Missing: X-Frame-Options, CSP frame-ancestors. Attacker bisa overlay halaman ini dengan UI palsu.",
+          "recommendation": "Tambahkan X-Frame-Options: DENY (atau SAMEORIGIN) DAN Content-Security-Policy: frame-ancestors 'self'"
+        },
+        {
+          "check": "Clickjacking: /layanan/n8n-workflow",
+          "status": "FAIL",
+          "severity": "MEDIUM",
+          "detail": "Halaman bisa di-embed dalam iframe (clickjacking). Missing: X-Frame-Options, CSP frame-ancestors. Attacker bisa overlay halaman ini dengan UI palsu.",
+          "recommendation": "Tambahkan X-Frame-Options: DENY (atau SAMEORIGIN) DAN Content-Security-Policy: frame-ancestors 'self'"
+        },
+        {
+          "check": "Clickjacking: /layanan/tugas-akademik",
+          "status": "FAIL",
+          "severity": "MEDIUM",
+          "detail": "Halaman bisa di-embed dalam iframe (clickjacking). Missing: X-Frame-Options, CSP frame-ancestors. Attacker bisa overlay halaman ini dengan UI palsu.",
+          "recommendation": "Tambahkan X-Frame-Options: DENY (atau SAMEORIGIN) DAN Content-Security-Policy: frame-ancestors 'self'"
+        }
+      ],
+      "tests_performed": 8,
+      "pages_checked": 8,
+      "passed": 0,
+      "failed": 8
+    },
+    "dir_discovery": {
+      "findings": [
+        {
+          "check": "Directory: /webadmin",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /webadmin exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /admin/",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /admin/ exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /administrator",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /administrator exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /admin",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /admin exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /sysadmin",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /sysadmin exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /admin.php",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /admin.php exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /dashboard",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /dashboard exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /manager",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /manager exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /admin/login",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /admin/login exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /manage",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /manage exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /cpanel",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /cpanel exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /admin/index.php",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /admin/index.php exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /control",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /control exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /auth",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /auth exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /login",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /login exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /admin/login.php",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /admin/login.php exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /signin",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /signin exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /api/users",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /api/users exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /api/status",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /api/status exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /graphql",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /graphql exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /administrator/",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /administrator/ exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /authenticate",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /authenticate exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /api/v1",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /api/v1 exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /swagger-ui",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /swagger-ui exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /users/sign_in",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /users/sign_in exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /api-docs",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /api-docs exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /debug/",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /debug/ exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /debug",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /debug exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /api/health",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /api/health exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /docs/api",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /docs/api exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /test",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /test exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /redoc",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /redoc exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /graphiql",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /graphiql exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /testing",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /testing exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /staging",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /staging exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /swagger",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /swagger exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /dev",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /dev exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /development",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /development exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /sandbox",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /sandbox exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /console",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /console exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /account/login",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /account/login exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /shell",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /shell exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /api/v2",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /api/v2 exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /phpinfo",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /phpinfo exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /terminal",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /terminal exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /phpinfo.php",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /phpinfo.php exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /info.php",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /info.php exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /pi.php",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /pi.php exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /.git",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /.git exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /trace.axd",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /trace.axd exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /elmah.axd",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /elmah.axd exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /controlpanel",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /controlpanel exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /api/config",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /api/config exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /.svn/entries",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /.svn/entries exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /.svn/wc.db",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /.svn/wc.db exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /.git/HEAD",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /.git/HEAD exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /.git/config",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /.git/config exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /.svn",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /.svn exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /api",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /api exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /.hg",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /.hg exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /.bzr",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /.bzr exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /.env.local",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /.env.local exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /.env.backup",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /.env.backup exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /.env.production",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /.env.production exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /.env",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /.env exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /api/v3",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /api/v3 exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /.env.save",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /.env.save exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /.env.old",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /.env.old exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /user/login",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /user/login exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /.env.bak",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /.env.bak exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /config.php",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /config.php exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /config.yml",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /config.yml exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /config.json",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /config.json exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /settings.py",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /settings.py exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /settings.php",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /settings.php exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /config.yaml",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /config.yaml exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /settings.json",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /settings.json exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /database.yml",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /database.yml exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /db.json",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /db.json exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /web.config",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /web.config exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /db.php",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /db.php exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /wp-config.php.bak",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /wp-config.php.bak exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /backup.sql",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /backup.sql exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /backups",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /backups exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /backup.zip",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /backup.zip exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /backup",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /backup exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /backup.tar.gz",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /backup.tar.gz exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /public.zip",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /public.zip exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /site.zip",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /site.zip exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /www.zip",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /www.zip exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /old",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /old exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /database.sql",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /database.sql exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /old/",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /old/ exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /temp",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /temp exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /tmp",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /tmp exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /bak",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /bak exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /logs",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /logs exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /error.log",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /error.log exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /log",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /log exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /wp-admin",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /wp-admin exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /debug.log",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /debug.log exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /wp-content/debug.log",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /wp-content/debug.log exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /joomla",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /joomla exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /user/register",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /user/register exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /administrator/index.php",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /administrator/index.php exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /drupal",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /drupal exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /app.log",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /app.log exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /magento",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /magento exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /admin_magento",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /admin_magento exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /wp-json",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /wp-json exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /wp-content/uploads",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /wp-content/uploads exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /server-status",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /server-status exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /application.log",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /application.log exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /wp-login.php",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /wp-login.php exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /dump.sql",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /dump.sql exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /nginx.conf",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /nginx.conf exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /.htpasswd",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /.htpasswd exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /.htaccess",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /.htaccess exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /server.log",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /server.log exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /server-info",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /server-info exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /access.log",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /access.log exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /httpd.conf",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /httpd.conf exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /crossdomain.xml",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /crossdomain.xml exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /package-lock.json",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /package-lock.json exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /package.json",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /package.json exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /yarn.lock",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /yarn.lock exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /composer.json",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /composer.json exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /Gemfile.lock",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /Gemfile.lock exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /requirements.txt",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /requirements.txt exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /README",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /README exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /readme",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /readme exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /Pipfile.lock",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /Pipfile.lock exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /readme.html",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /readme.html exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /CHANGELOG",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /CHANGELOG exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /Gemfile",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /Gemfile exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /documentation",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /documentation exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /docs",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /docs exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /LICENSE",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /LICENSE exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /README.md",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /README.md exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /Jenkinsfile",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /Jenkinsfile exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /Dockerfile",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /Dockerfile exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /composer.lock",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /composer.lock exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /.circleci/config.yml",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /.circleci/config.yml exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /CHANGELOG.md",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /CHANGELOG.md exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /docker-compose.yml",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /docker-compose.yml exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /.github",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /.github exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /clientaccesspolicy.xml",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /clientaccesspolicy.xml exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /metrics",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /metrics exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /.gitlab-ci.yml",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /.gitlab-ci.yml exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /grafana",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /grafana exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /health",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /health exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /status",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /status exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /actuator/health",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /actuator/health exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /.travis.yml",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /.travis.yml exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /actuator",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /actuator exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /ping",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /ping exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /actuator/env",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /actuator/env exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /phpmyadmin",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /phpmyadmin exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /pma",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /pma exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /phpmyadmin/",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /phpmyadmin/ exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /Pipfile",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /Pipfile exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /adminer",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /adminer exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /healthcheck",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /healthcheck exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /mail",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /mail exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /webmail",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /webmail exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /roundcube",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /roundcube exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /prometheus",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /prometheus exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /.well-known/security.txt",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /.well-known/security.txt exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /security.txt",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /security.txt exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /sitemap_index.xml",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /sitemap_index.xml exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /install",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /install exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /setup",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /setup exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /install.php",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /install.php exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /Thumbs.db",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /Thumbs.db exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /humans.txt",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /humans.txt exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /cgi-bin/",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /cgi-bin/ exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /ads.txt",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /ads.txt exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /xmlrpc.php",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /xmlrpc.php exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /wp-cron.php",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /wp-cron.php exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /adminer.php",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /adminer.php exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /pma/",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /pma/ exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /api/swagger.json",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /api/swagger.json exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /api/openapi.json",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /api/openapi.json exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /.DS_Store",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /.DS_Store exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /v1",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /v1 exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /v2",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /v2 exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /sitemap.xml",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /sitemap.xml exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /.well-known",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /.well-known exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /robots.txt",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /robots.txt exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /setup.php",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /setup.php exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Directory: /cgi-bin",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Path /cgi-bin exists but access denied (HTTP 403)",
+          "recommendation": "-"
+        }
+      ],
+      "passed": 191,
+      "failed": 0
+    },
+    "tech": {
+      "findings": [
+        {
+          "check": "Technology Stack",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Terdeteksi 1 teknologi: Server Vercel",
+          "recommendation": "-"
+        }
+      ],
+      "passed": 1,
+      "failed": 0
+    },
+    "security_txt": {
+      "findings": [
+        {
+          "check": "security.txt (missing)",
+          "status": "FAIL",
+          "severity": "LOW",
+          "detail": "security.txt tidak ditemukan — best practice adalah menyediakan file ini agar security researcher tahu cara melaporkan kerentanan",
+          "recommendation": "Buat file /.well-known/security.txt sesuai RFC 9116. Minimal berisi Contact: dan Expires: fields."
+        },
+        {
+          "check": "robots.txt (missing)",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "robots.txt tidak ditemukan atau kosong",
+          "recommendation": "-"
+        }
+      ],
+      "passed": 1,
+      "failed": 1
+    },
+    "waf": {
+      "findings": [
+        {
+          "check": "WAF: Vercel detected",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Website dilindungi oleh Vercel. Evidence: Header: X-Vercel-Id",
+          "recommendation": "-"
+        },
+        {
+          "check": "WAF: Active blocking",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "WAF aktif memblokir malicious request (HTTP 403 saat payload SQLi dikirim)",
+          "recommendation": "-"
+        }
+      ],
+      "passed": 2,
+      "failed": 0
+    },
+    "ports": {
+      "hostname": "shift-drives.vercel.app",
+      "ip": "216.198.79.131",
+      "mode": "extended",
+      "scan_label": "Extended scan (top 1000)",
+      "findings": [
+        {
+          "check": "Port 80/HTTP",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Port 80 (HTTP) terbuka — web server (normal)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Port 443/HTTPS",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Port 443 (HTTPS) terbuka — web server (normal)",
+          "recommendation": "-"
+        }
+      ],
+      "open_ports": [
+        {
+          "port": 80,
+          "service": "HTTP"
+        },
+        {
+          "port": 443,
+          "service": "HTTPS"
+        }
+      ],
+      "ports_scanned": 667,
+      "passed": 2,
+      "failed": 0
+    }
+  },
+  "all_findings": [
+    {
+      "check": "Strict-Transport-Security",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Ditemukan: max-age=63072000; includeSubDomains; preload",
+      "recommendation": "-"
+    },
+    {
+      "check": "Content-Security-Policy",
+      "status": "FAIL",
+      "severity": "HIGH",
+      "detail": "Mencegah XSS dan injeksi konten berbahaya",
+      "recommendation": "Tambahkan header CSP yang sesuai. Minimal: Content-Security-Policy: default-src 'self'"
+    },
+    {
+      "check": "X-Frame-Options",
+      "status": "FAIL",
+      "severity": "MEDIUM",
+      "detail": "Mencegah clickjacking via iframe",
+      "recommendation": "Tambahkan header: X-Frame-Options: DENY atau SAMEORIGIN"
+    },
+    {
+      "check": "X-Content-Type-Options",
+      "status": "FAIL",
+      "severity": "MEDIUM",
+      "detail": "Mencegah MIME-type sniffing",
+      "recommendation": "Tambahkan header: X-Content-Type-Options: nosniff"
+    },
+    {
+      "check": "X-XSS-Protection",
+      "status": "FAIL",
+      "severity": "LOW",
+      "detail": "Mengaktifkan filter XSS bawaan browser (legacy)",
+      "recommendation": "Tambahkan header: X-XSS-Protection: 1; mode=block (atau gunakan CSP sebagai pengganti)"
+    },
+    {
+      "check": "Referrer-Policy",
+      "status": "FAIL",
+      "severity": "LOW",
+      "detail": "Mengontrol informasi referrer yang dikirim browser",
+      "recommendation": "Tambahkan header: Referrer-Policy: strict-origin-when-cross-origin"
+    },
+    {
+      "check": "Permissions-Policy",
+      "status": "FAIL",
+      "severity": "LOW",
+      "detail": "Mengontrol akses fitur browser (kamera, mikrofon, geolokasi)",
+      "recommendation": "Tambahkan header: Permissions-Policy: geolocation=(), camera=(), microphone=()"
+    },
+    {
+      "check": "Server (Info Leak)",
+      "status": "FAIL",
+      "severity": "LOW",
+      "detail": "Terdeteksi: Vercel — Membocorkan versi web server (misal: Apache/2.4.41)",
+      "recommendation": "Sembunyikan atau hapus header Server dari response"
+    },
+    {
+      "check": "X-Powered-By (Info Leak)",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Tidak ditemukan (bagus)",
+      "recommendation": "-"
+    },
+    {
+      "check": "HTTP → HTTPS Redirect",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "HTTP redirect ke HTTPS (308)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Validitas Sertifikat SSL",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Sertifikat valid dan terpercaya",
+      "recommendation": "-"
+    },
+    {
+      "check": "Masa Berlaku Sertifikat",
+      "status": "PASS",
+      "severity": "LOW",
+      "detail": "Sertifikat berlaku 62 hari lagi (Jul 27 02:04:42 2026 GMT)",
+      "recommendation": "Jadwalkan pembaruan sertifikat"
+    },
+    {
+      "check": "Versi TLS",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Server menggunakan TLSv1.3",
+      "recommendation": "-"
+    },
+    {
+      "check": "Cipher Strength",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Cipher: TLS_AES_128_GCM_SHA256 (128-bit)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Certificate Issuer",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Diterbitkan oleh: Google Trust Services (WR1)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Domain Match (SAN)",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Domain 'shift-drives.vercel.app' tercantum di SAN sertifikat",
+      "recommendation": "-"
+    },
+    {
+      "check": "File: /wp-config.php",
+      "status": "PASS",
+      "severity": "INFO",
+      "category": "CMS Config",
+      "detail": "File ada tapi akses diblokir (HTTP 403) — server melindungi dengan benar",
+      "recommendation": "-",
+      "result_type": "protected"
+    },
+    {
+      "check": "File: /wp-config.php.bak",
+      "status": "PASS",
+      "severity": "INFO",
+      "category": "CMS Config",
+      "detail": "File ada tapi akses diblokir (HTTP 403) — server melindungi dengan benar",
+      "recommendation": "-",
+      "result_type": "protected"
+    },
+    {
+      "check": "File: /wp-config.php~",
+      "status": "PASS",
+      "severity": "INFO",
+      "category": "CMS Config",
+      "detail": "File ada tapi akses diblokir (HTTP 403) — server melindungi dengan benar",
+      "recommendation": "-",
+      "result_type": "protected"
+    },
+    {
+      "check": "File: /configuration.php",
+      "status": "PASS",
+      "severity": "INFO",
+      "category": "CMS Config",
+      "detail": "File ada tapi akses diblokir (HTTP 403) — server melindungi dengan benar",
+      "recommendation": "-",
+      "result_type": "protected"
+    },
+    {
+      "check": "File: /phpinfo.php",
+      "status": "PASS",
+      "severity": "INFO",
+      "category": "Info Disclosure",
+      "detail": "File ada tapi akses diblokir (HTTP 403) — server melindungi dengan benar",
+      "recommendation": "-",
+      "result_type": "protected"
+    },
+    {
+      "check": "File: /info.php",
+      "status": "PASS",
+      "severity": "INFO",
+      "category": "Info Disclosure",
+      "detail": "File ada tapi akses diblokir (HTTP 403) — server melindungi dengan benar",
+      "recommendation": "-",
+      "result_type": "protected"
+    },
+    {
+      "check": "CMS Detection",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "CMS terdeteksi: WordPress (versi tidak terdeteksi)",
+      "recommendation": "-"
+    },
+    {
+      "check": "WordPress Plugin Enumeration",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Tidak ada plugin populer terdeteksi dari 50 plugin yang di-scan",
+      "recommendation": "-"
+    },
+    {
+      "check": "Advanced SQL Injection Scan",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Tidak ditemukan SQLi (0 tests: 0 error-based, 0 boolean-based, 0 time-based)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Reflected XSS Scan",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Tidak ditemukan Reflected XSS di 10 halaman (0 injection points tested)",
+      "recommendation": "-"
+    },
+    {
+      "check": "CSRF Form Analysis",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Tidak ada form rentan CSRF di 10 halaman",
+      "recommendation": "-"
+    },
+    {
+      "check": "Open Redirect Scan",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Tidak ditemukan Open Redirect (680 tests pada 10 halaman)",
+      "recommendation": "-"
+    },
+    {
+      "check": "CORS Configuration Scan",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Tidak ditemukan CORS misconfiguration (11 tests pada 10 halaman)",
+      "recommendation": "-"
+    },
+    {
+      "check": "HTTP Method Security",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Tidak ada HTTP method berbahaya yang aktif (5 methods tested)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Information Leak Scan",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Tidak ditemukan informasi sensitif di source code (10 halaman di-scan, 10 pattern types)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Cookie Security Audit",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Tidak ada cookie di-set pada 8 halaman",
+      "recommendation": "-"
+    },
+    {
+      "check": "Clickjacking: /",
+      "status": "FAIL",
+      "severity": "MEDIUM",
+      "detail": "Halaman bisa di-embed dalam iframe (clickjacking). Missing: X-Frame-Options, CSP frame-ancestors. Attacker bisa overlay halaman ini dengan UI palsu.",
+      "recommendation": "Tambahkan X-Frame-Options: DENY (atau SAMEORIGIN) DAN Content-Security-Policy: frame-ancestors 'self'"
+    },
+    {
+      "check": "Clickjacking: /layanan/website-development",
+      "status": "FAIL",
+      "severity": "MEDIUM",
+      "detail": "Halaman bisa di-embed dalam iframe (clickjacking). Missing: X-Frame-Options, CSP frame-ancestors. Attacker bisa overlay halaman ini dengan UI palsu.",
+      "recommendation": "Tambahkan X-Frame-Options: DENY (atau SAMEORIGIN) DAN Content-Security-Policy: frame-ancestors 'self'"
+    },
+    {
+      "check": "Clickjacking: /layanan/mobile-app",
+      "status": "FAIL",
+      "severity": "MEDIUM",
+      "detail": "Halaman bisa di-embed dalam iframe (clickjacking). Missing: X-Frame-Options, CSP frame-ancestors. Attacker bisa overlay halaman ini dengan UI palsu.",
+      "recommendation": "Tambahkan X-Frame-Options: DENY (atau SAMEORIGIN) DAN Content-Security-Policy: frame-ancestors 'self'"
+    },
+    {
+      "check": "Clickjacking: /layanan/security-tools",
+      "status": "FAIL",
+      "severity": "MEDIUM",
+      "detail": "Halaman bisa di-embed dalam iframe (clickjacking). Missing: X-Frame-Options, CSP frame-ancestors. Attacker bisa overlay halaman ini dengan UI palsu.",
+      "recommendation": "Tambahkan X-Frame-Options: DENY (atau SAMEORIGIN) DAN Content-Security-Policy: frame-ancestors 'self'"
+    },
+    {
+      "check": "Clickjacking: /layanan/chatbot-automation",
+      "status": "FAIL",
+      "severity": "MEDIUM",
+      "detail": "Halaman bisa di-embed dalam iframe (clickjacking). Missing: X-Frame-Options, CSP frame-ancestors. Attacker bisa overlay halaman ini dengan UI palsu.",
+      "recommendation": "Tambahkan X-Frame-Options: DENY (atau SAMEORIGIN) DAN Content-Security-Policy: frame-ancestors 'self'"
+    },
+    {
+      "check": "Clickjacking: /layanan/iot-solutions",
+      "status": "FAIL",
+      "severity": "MEDIUM",
+      "detail": "Halaman bisa di-embed dalam iframe (clickjacking). Missing: X-Frame-Options, CSP frame-ancestors. Attacker bisa overlay halaman ini dengan UI palsu.",
+      "recommendation": "Tambahkan X-Frame-Options: DENY (atau SAMEORIGIN) DAN Content-Security-Policy: frame-ancestors 'self'"
+    },
+    {
+      "check": "Clickjacking: /layanan/n8n-workflow",
+      "status": "FAIL",
+      "severity": "MEDIUM",
+      "detail": "Halaman bisa di-embed dalam iframe (clickjacking). Missing: X-Frame-Options, CSP frame-ancestors. Attacker bisa overlay halaman ini dengan UI palsu.",
+      "recommendation": "Tambahkan X-Frame-Options: DENY (atau SAMEORIGIN) DAN Content-Security-Policy: frame-ancestors 'self'"
+    },
+    {
+      "check": "Clickjacking: /layanan/tugas-akademik",
+      "status": "FAIL",
+      "severity": "MEDIUM",
+      "detail": "Halaman bisa di-embed dalam iframe (clickjacking). Missing: X-Frame-Options, CSP frame-ancestors. Attacker bisa overlay halaman ini dengan UI palsu.",
+      "recommendation": "Tambahkan X-Frame-Options: DENY (atau SAMEORIGIN) DAN Content-Security-Policy: frame-ancestors 'self'"
+    },
+    {
+      "check": "Directory: /webadmin",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /webadmin exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /admin/",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /admin/ exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /administrator",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /administrator exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /admin",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /admin exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /sysadmin",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /sysadmin exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /admin.php",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /admin.php exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /dashboard",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /dashboard exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /manager",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /manager exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /admin/login",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /admin/login exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /manage",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /manage exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /cpanel",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /cpanel exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /admin/index.php",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /admin/index.php exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /control",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /control exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /auth",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /auth exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /login",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /login exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /admin/login.php",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /admin/login.php exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /signin",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /signin exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /api/users",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /api/users exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /api/status",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /api/status exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /graphql",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /graphql exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /administrator/",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /administrator/ exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /authenticate",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /authenticate exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /api/v1",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /api/v1 exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /swagger-ui",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /swagger-ui exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /users/sign_in",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /users/sign_in exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /api-docs",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /api-docs exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /debug/",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /debug/ exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /debug",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /debug exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /api/health",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /api/health exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /docs/api",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /docs/api exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /test",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /test exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /redoc",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /redoc exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /graphiql",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /graphiql exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /testing",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /testing exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /staging",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /staging exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /swagger",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /swagger exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /dev",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /dev exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /development",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /development exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /sandbox",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /sandbox exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /console",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /console exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /account/login",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /account/login exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /shell",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /shell exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /api/v2",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /api/v2 exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /phpinfo",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /phpinfo exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /terminal",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /terminal exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /phpinfo.php",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /phpinfo.php exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /info.php",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /info.php exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /pi.php",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /pi.php exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /.git",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /.git exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /trace.axd",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /trace.axd exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /elmah.axd",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /elmah.axd exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /controlpanel",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /controlpanel exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /api/config",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /api/config exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /.svn/entries",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /.svn/entries exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /.svn/wc.db",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /.svn/wc.db exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /.git/HEAD",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /.git/HEAD exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /.git/config",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /.git/config exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /.svn",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /.svn exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /api",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /api exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /.hg",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /.hg exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /.bzr",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /.bzr exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /.env.local",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /.env.local exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /.env.backup",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /.env.backup exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /.env.production",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /.env.production exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /.env",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /.env exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /api/v3",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /api/v3 exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /.env.save",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /.env.save exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /.env.old",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /.env.old exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /user/login",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /user/login exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /.env.bak",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /.env.bak exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /config.php",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /config.php exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /config.yml",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /config.yml exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /config.json",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /config.json exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /settings.py",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /settings.py exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /settings.php",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /settings.php exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /config.yaml",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /config.yaml exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /settings.json",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /settings.json exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /database.yml",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /database.yml exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /db.json",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /db.json exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /web.config",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /web.config exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /db.php",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /db.php exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /wp-config.php.bak",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /wp-config.php.bak exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /backup.sql",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /backup.sql exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /backups",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /backups exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /backup.zip",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /backup.zip exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /backup",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /backup exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /backup.tar.gz",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /backup.tar.gz exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /public.zip",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /public.zip exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /site.zip",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /site.zip exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /www.zip",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /www.zip exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /old",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /old exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /database.sql",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /database.sql exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /old/",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /old/ exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /temp",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /temp exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /tmp",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /tmp exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /bak",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /bak exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /logs",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /logs exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /error.log",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /error.log exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /log",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /log exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /wp-admin",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /wp-admin exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /debug.log",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /debug.log exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /wp-content/debug.log",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /wp-content/debug.log exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /joomla",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /joomla exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /user/register",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /user/register exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /administrator/index.php",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /administrator/index.php exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /drupal",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /drupal exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /app.log",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /app.log exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /magento",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /magento exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /admin_magento",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /admin_magento exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /wp-json",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /wp-json exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /wp-content/uploads",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /wp-content/uploads exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /server-status",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /server-status exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /application.log",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /application.log exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /wp-login.php",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /wp-login.php exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /dump.sql",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /dump.sql exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /nginx.conf",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /nginx.conf exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /.htpasswd",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /.htpasswd exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /.htaccess",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /.htaccess exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /server.log",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /server.log exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /server-info",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /server-info exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /access.log",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /access.log exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /httpd.conf",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /httpd.conf exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /crossdomain.xml",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /crossdomain.xml exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /package-lock.json",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /package-lock.json exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /package.json",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /package.json exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /yarn.lock",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /yarn.lock exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /composer.json",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /composer.json exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /Gemfile.lock",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /Gemfile.lock exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /requirements.txt",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /requirements.txt exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /README",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /README exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /readme",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /readme exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /Pipfile.lock",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /Pipfile.lock exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /readme.html",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /readme.html exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /CHANGELOG",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /CHANGELOG exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /Gemfile",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /Gemfile exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /documentation",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /documentation exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /docs",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /docs exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /LICENSE",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /LICENSE exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /README.md",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /README.md exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /Jenkinsfile",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /Jenkinsfile exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /Dockerfile",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /Dockerfile exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /composer.lock",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /composer.lock exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /.circleci/config.yml",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /.circleci/config.yml exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /CHANGELOG.md",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /CHANGELOG.md exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /docker-compose.yml",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /docker-compose.yml exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /.github",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /.github exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /clientaccesspolicy.xml",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /clientaccesspolicy.xml exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /metrics",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /metrics exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /.gitlab-ci.yml",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /.gitlab-ci.yml exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /grafana",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /grafana exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /health",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /health exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /status",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /status exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /actuator/health",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /actuator/health exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /.travis.yml",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /.travis.yml exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /actuator",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /actuator exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /ping",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /ping exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /actuator/env",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /actuator/env exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /phpmyadmin",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /phpmyadmin exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /pma",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /pma exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /phpmyadmin/",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /phpmyadmin/ exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /Pipfile",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /Pipfile exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /adminer",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /adminer exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /healthcheck",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /healthcheck exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /mail",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /mail exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /webmail",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /webmail exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /roundcube",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /roundcube exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /prometheus",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /prometheus exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /.well-known/security.txt",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /.well-known/security.txt exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /security.txt",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /security.txt exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /sitemap_index.xml",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /sitemap_index.xml exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /install",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /install exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /setup",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /setup exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /install.php",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /install.php exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /Thumbs.db",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /Thumbs.db exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /humans.txt",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /humans.txt exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /cgi-bin/",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /cgi-bin/ exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /ads.txt",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /ads.txt exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /xmlrpc.php",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /xmlrpc.php exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /wp-cron.php",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /wp-cron.php exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /adminer.php",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /adminer.php exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /pma/",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /pma/ exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /api/swagger.json",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /api/swagger.json exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /api/openapi.json",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /api/openapi.json exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /.DS_Store",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /.DS_Store exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /v1",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /v1 exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /v2",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /v2 exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /sitemap.xml",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /sitemap.xml exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /.well-known",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /.well-known exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /robots.txt",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /robots.txt exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /setup.php",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /setup.php exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Directory: /cgi-bin",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Path /cgi-bin exists but access denied (HTTP 403)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Technology Stack",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Terdeteksi 1 teknologi: Server Vercel",
+      "recommendation": "-"
+    },
+    {
+      "check": "security.txt (missing)",
+      "status": "FAIL",
+      "severity": "LOW",
+      "detail": "security.txt tidak ditemukan — best practice adalah menyediakan file ini agar security researcher tahu cara melaporkan kerentanan",
+      "recommendation": "Buat file /.well-known/security.txt sesuai RFC 9116. Minimal berisi Contact: dan Expires: fields."
+    },
+    {
+      "check": "robots.txt (missing)",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "robots.txt tidak ditemukan atau kosong",
+      "recommendation": "-"
+    },
+    {
+      "check": "WAF: Vercel detected",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Website dilindungi oleh Vercel. Evidence: Header: X-Vercel-Id",
+      "recommendation": "-"
+    },
+    {
+      "check": "WAF: Active blocking",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "WAF aktif memblokir malicious request (HTTP 403 saat payload SQLi dikirim)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Port 80/HTTP",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Port 80 (HTTP) terbuka — web server (normal)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Port 443/HTTPS",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Port 443 (HTTPS) terbuka — web server (normal)",
+      "recommendation": "-"
+    }
+  ],
+  "statistics": {
+    "total_checks": 242,
+    "total_passed": 255,
+    "total_failed": 16
+  }
+}

@@ -1,0 +1,646 @@
+{
+  "scan_info": {
+    "tool": "SpencerWeb v2.0",
+    "author": "SpencerWeb Security Audit Tool",
+    "method": "OWASP Top 10 + CVSS Scoring",
+    "timestamp": "2026-05-19T21:20:56.634873",
+    "target": "https://bpsdm.kemenhub.go.id",
+    "scan_duration_seconds": 131.96
+  },
+  "crawl_info": {
+    "pages_crawled": 1,
+    "forms_found": 0,
+    "urls_with_params": 2,
+    "pages_failed": 0
+  },
+  "grade": {
+    "grade": "F",
+    "score": 16,
+    "severity_count": {
+      "CRITICAL": 1,
+      "HIGH": 5,
+      "MEDIUM": 9,
+      "LOW": 3,
+      "INFO": 0
+    },
+    "summary": "1 CRITICAL, 5 HIGH, 9 MEDIUM, 3 LOW"
+  },
+  "modules": {
+    "headers": {
+      "findings": [
+        {
+          "check": "Strict-Transport-Security",
+          "status": "FAIL",
+          "severity": "HIGH",
+          "detail": "Memaksa browser selalu menggunakan HTTPS",
+          "recommendation": "Tambahkan header: Strict-Transport-Security: max-age=31536000; includeSubDomains"
+        },
+        {
+          "check": "Content-Security-Policy",
+          "status": "FAIL",
+          "severity": "HIGH",
+          "detail": "Mencegah XSS dan injeksi konten berbahaya",
+          "recommendation": "Tambahkan header CSP yang sesuai. Minimal: Content-Security-Policy: default-src 'self'"
+        },
+        {
+          "check": "X-Frame-Options",
+          "status": "FAIL",
+          "severity": "MEDIUM",
+          "detail": "Mencegah clickjacking via iframe",
+          "recommendation": "Tambahkan header: X-Frame-Options: DENY atau SAMEORIGIN"
+        },
+        {
+          "check": "X-Content-Type-Options",
+          "status": "FAIL",
+          "severity": "MEDIUM",
+          "detail": "Mencegah MIME-type sniffing",
+          "recommendation": "Tambahkan header: X-Content-Type-Options: nosniff"
+        },
+        {
+          "check": "X-XSS-Protection",
+          "status": "FAIL",
+          "severity": "LOW",
+          "detail": "Mengaktifkan filter XSS bawaan browser (legacy)",
+          "recommendation": "Tambahkan header: X-XSS-Protection: 1; mode=block (atau gunakan CSP sebagai pengganti)"
+        },
+        {
+          "check": "Referrer-Policy",
+          "status": "FAIL",
+          "severity": "LOW",
+          "detail": "Mengontrol informasi referrer yang dikirim browser",
+          "recommendation": "Tambahkan header: Referrer-Policy: strict-origin-when-cross-origin"
+        },
+        {
+          "check": "Permissions-Policy",
+          "status": "FAIL",
+          "severity": "LOW",
+          "detail": "Mengontrol akses fitur browser (kamera, mikrofon, geolokasi)",
+          "recommendation": "Tambahkan header: Permissions-Policy: geolocation=(), camera=(), microphone=()"
+        },
+        {
+          "check": "Server (Info Leak)",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Tidak ditemukan (bagus)",
+          "recommendation": "-"
+        },
+        {
+          "check": "X-Powered-By (Info Leak)",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Tidak ditemukan (bagus)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Cookie: TS01a2049c",
+          "status": "FAIL",
+          "severity": "MEDIUM",
+          "detail": "Cookie tidak aman: Missing 'Secure' flag, Missing 'HttpOnly' flag",
+          "recommendation": "Set flag Secure dan HttpOnly pada semua cookie sensitif"
+        },
+        {
+          "check": "Cookie: XSRF-TOKEN",
+          "status": "FAIL",
+          "severity": "MEDIUM",
+          "detail": "Cookie tidak aman: Missing 'Secure' flag, Missing 'HttpOnly' flag",
+          "recommendation": "Set flag Secure dan HttpOnly pada semua cookie sensitif"
+        },
+        {
+          "check": "Cookie: bpsdm_session",
+          "status": "FAIL",
+          "severity": "MEDIUM",
+          "detail": "Cookie tidak aman: Missing 'Secure' flag, Missing 'HttpOnly' flag",
+          "recommendation": "Set flag Secure dan HttpOnly pada semua cookie sensitif"
+        },
+        {
+          "check": "HTTP → HTTPS Redirect",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "HTTP redirect ke HTTPS (302)",
+          "recommendation": "-"
+        }
+      ],
+      "raw_headers": {
+        "date": "Tue, 19 May 2026 14:18:55 GMT",
+        "content-type": "text/html; charset=UTF-8",
+        "cache-control": "no-cache, private",
+        "set-cookie": "XSRF-TOKEN=eyJpdiI6IlVWN1QzcUpvVG15WlRHb21GZzI5OVE9PSIsInZhbHVlIjoidkhDTkVubDZVM2pzSlRtY3JvNDJ4SUY0RHN0ajJuOVFlNWtuMXVERDhqRmt5VG54VmlMOFBKdFZlc2NwZ0ROUHdZT2JNenMvMzdXcHQ2NFc1WEhwMFR4OHZBVWF3UllFcU5jVnZEOFVUVUlKZjE5bFZkMFVIMEMrL0R6K08vMlciLCJtYWMiOiI3OTEwZDA3M2YwMGM3OWJhZWM5NDc1NmFhNWZkOTNjOTU5MTZlODgxNDZlMzJhODU4NjMzMWUzZTFkN2U0Zjg0IiwidGFnIjoiIn0%3D; expires=Tue, 19 May 2026 16:18:55 GMT; Max-Age=7200; path=/; samesite=lax, bpsdm_session=eyJpdiI6IjE4dUNTT2ExWmsreXZVUFN0Q1FCM1E9PSIsInZhbHVlIjoiRHVYeE00UXlpTDZKWDVqOEVKVHJYWUt6TW9pNmV5MWdJRWtFRXpJT0xTRTdwRlhyeUxSU1VTSW5RcTlTTWF5aHRFSjNpVzJpWnN6K3FpdFNWU254VlJmaGlQczczY1pyK1pwektkZFBxaVcyTFc3UVQvKzE5TFo2OXl2M0o4bGIiLCJtYWMiOiJhYWJhYTM2NGZlODVkZjAzM2NmY2VjOTFlZjA1MjJkZDAyZTcxY2ZjNTc1ZTYyMzJjM2I1ZDE0Y2UyMjMwNWUxIiwidGFnIjoiIn0%3D; expires=Tue, 19 May 2026 16:18:55 GMT; Max-Age=7200; path=/; httponly; samesite=lax, TS01a2049c=01ad371bc437d66771667caad850036211dc96b63abed7fab32898b723aeed916dd15ebf96e6e04898ed47313f35062125eae10c66031beb2ce99e88e60904132b8beb65a7dad28f3217bdcf9f83d6b897073939e0; Path=/; ",
+        "Transfer-Encoding": "chunked"
+      },
+      "passed": 3,
+      "failed": 10
+    },
+    "ssl": {
+      "hostname": "bpsdm.kemenhub.go.id",
+      "tls_version": "TLSv1.3",
+      "findings": [
+        {
+          "check": "Validitas Sertifikat SSL",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Sertifikat valid dan terpercaya",
+          "recommendation": "-"
+        },
+        {
+          "check": "Masa Berlaku Sertifikat",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Sertifikat berlaku 167 hari lagi (Nov  2 23:59:59 2026 GMT)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Versi TLS",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Server menggunakan TLSv1.3",
+          "recommendation": "-"
+        },
+        {
+          "check": "Cipher Strength",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Cipher: TLS_AES_128_GCM_SHA256 (128-bit)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Certificate Issuer",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Diterbitkan oleh: Sectigo Limited (Sectigo Public Server Authentication CA DV R36)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Domain Match (SAN)",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Domain 'bpsdm.kemenhub.go.id' tercantum di SAN sertifikat",
+          "recommendation": "-"
+        }
+      ],
+      "cert_info": {
+        "subject_commonName": "dephub.go.id",
+        "issuer_countryName": "GB",
+        "issuer_organizationName": "Sectigo Limited",
+        "issuer_commonName": "Sectigo Public Server Authentication CA DV R36",
+        "notBefore": "Oct 10 00:00:00 2025 GMT",
+        "notAfter": "Nov  2 23:59:59 2026 GMT",
+        "serialNumber": "B5F3D7377EBE7E5D00189DB4EAE365A3",
+        "san": [
+          "dephub.go.id",
+          "*.baketrans.dephub.go.id",
+          "*.baketrans.kemenhub.go.id",
+          "*.bpsdm.dephub.go.id",
+          "*.bpsdm.kemenhub.go.id",
+          "*.dephub.go.id",
+          "*.ditjenintram.dephub.go.id",
+          "*.ditjenintram.kemenhub.go.id",
+          "*.djka.dephub.go.id",
+          "*.djka.kemenhub.go.id",
+          "*.hubdat.dephub.go.id",
+          "*.hubdat.kemenhub.go.id",
+          "*.hubla.dephub.go.id",
+          "*.hubla.kemenhub.go.id",
+          "*.hubud.dephub.go.id",
+          "*.hubud.kemenhub.go.id",
+          "*.itjen.dephub.go.id",
+          "*.itjen.kemenhub.go.id",
+          "*.kemenhub.go.id",
+          "kemenhub.go.id"
+        ]
+      },
+      "passed": 6,
+      "failed": 0
+    },
+    "sensitive_files": {
+      "findings": [
+        {
+          "check": "File: /wp-config.php.bak",
+          "status": "FAIL",
+          "severity": "CRITICAL",
+          "category": "CMS Config",
+          "detail": "EXPOSED! Backup WordPress config — bisa di-download sebagai plain text (HTTP 200, 246 bytes)",
+          "recommendation": "Hapus semua file backup dari server production",
+          "result_type": "exposed"
+        },
+        {
+          "check": "File: /web.config",
+          "status": "FAIL",
+          "severity": "HIGH",
+          "category": "Server Config",
+          "detail": "EXPOSED! File konfigurasi IIS exposed (HTTP 200, 246 bytes)",
+          "recommendation": "Batasi akses ke web.config",
+          "result_type": "exposed"
+        },
+        {
+          "check": "File: /.htaccess",
+          "status": "FAIL",
+          "severity": "HIGH",
+          "category": "Server Config",
+          "detail": "EXPOSED! File konfigurasi Apache exposed — bisa berisi rewrite rules & auth config (HTTP 200, 603 bytes)",
+          "recommendation": "Konfigurasi web server agar tidak melayani file dot-files",
+          "result_type": "exposed"
+        },
+        {
+          "check": "File: /nginx.conf",
+          "status": "FAIL",
+          "severity": "HIGH",
+          "category": "Server Config",
+          "detail": "EXPOSED! Konfigurasi Nginx exposed (HTTP 200, 246 bytes)",
+          "recommendation": "Jangan simpan file konfigurasi di document root",
+          "result_type": "exposed"
+        },
+        {
+          "check": "File: /admin/",
+          "status": "FAIL",
+          "severity": "MEDIUM",
+          "category": "Admin Panel",
+          "detail": "EXPOSED! Admin panel terdeteksi — perlu verifikasi apakah dilindungi autentikasi (HTTP 200, 7228 bytes)",
+          "recommendation": "Pastikan admin panel dilindungi autentikasi kuat + IP allowlist",
+          "result_type": "exposed"
+        },
+        {
+          "check": "File: /access.log",
+          "status": "FAIL",
+          "severity": "MEDIUM",
+          "category": "Log Files",
+          "detail": "EXPOSED! Access log exposed — berisi IP pengunjung & request history (HTTP 200, 246 bytes)",
+          "recommendation": "Pindahkan log ke luar document root",
+          "result_type": "exposed"
+        },
+        {
+          "check": "File: /debug.log",
+          "status": "FAIL",
+          "severity": "MEDIUM",
+          "category": "Log Files",
+          "detail": "EXPOSED! Debug log exposed (HTTP 200, 246 bytes)",
+          "recommendation": "Nonaktifkan debug mode & hapus log dari document root",
+          "result_type": "exposed"
+        },
+        {
+          "check": "File: /error.log",
+          "status": "FAIL",
+          "severity": "MEDIUM",
+          "category": "Log Files",
+          "detail": "EXPOSED! Error log exposed — bisa berisi path internal, stack trace, info sensitif (HTTP 200, 246 bytes)",
+          "recommendation": "Pindahkan log ke luar document root",
+          "result_type": "exposed"
+        }
+      ],
+      "total_paths_checked": 35,
+      "passed": 27,
+      "failed": 8
+    },
+    "cms": {
+      "cms": null,
+      "version": null,
+      "findings": [
+        {
+          "check": "CMS Detection",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Tidak ada CMS populer terdeteksi (custom-built atau non-standard CMS)",
+          "recommendation": "-"
+        }
+      ],
+      "passed": 1,
+      "failed": 0
+    },
+    "sqli_advanced": {
+      "findings": [
+        {
+          "check": "Advanced SQL Injection Scan",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Tidak ditemukan SQLi (22 tests: 8 error-based, 8 boolean-based, 6 time-based)",
+          "recommendation": "-"
+        }
+      ],
+      "tests_performed": {
+        "error_based": 8,
+        "boolean_based": 8,
+        "time_based": 6
+      },
+      "total_tests": 22,
+      "passed": 1,
+      "failed": 0
+    },
+    "xss": {
+      "findings": [
+        {
+          "check": "XSS (Cross-Site Scripting) Scan",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Tidak ditemukan kerentanan XSS (6 tests)",
+          "recommendation": "-"
+        }
+      ],
+      "injection_points_tested": 6,
+      "forms_found": 0,
+      "passed": 1,
+      "failed": 0
+    },
+    "csrf": {
+      "findings": [
+        {
+          "check": "CSRF Form Analysis",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Tidak ada form ditemukan di halaman ini",
+          "recommendation": "-"
+        }
+      ],
+      "forms_analyzed": 0,
+      "passed": 1,
+      "failed": 0
+    },
+    "ports": {
+      "hostname": "bpsdm.kemenhub.go.id",
+      "ip": "202.61.105.47",
+      "mode": "common",
+      "scan_label": "Common scan (top 100)",
+      "findings": [
+        {
+          "check": "Port 80/HTTP",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Port 80 (HTTP) terbuka — web server (normal)",
+          "recommendation": "-"
+        },
+        {
+          "check": "Port 443/HTTPS",
+          "status": "PASS",
+          "severity": "INFO",
+          "detail": "Port 443 (HTTPS) terbuka — web server (normal)",
+          "recommendation": "-"
+        }
+      ],
+      "open_ports": [
+        {
+          "port": 80,
+          "service": "HTTP"
+        },
+        {
+          "port": 443,
+          "service": "HTTPS"
+        }
+      ],
+      "ports_scanned": 101,
+      "passed": 2,
+      "failed": 0
+    }
+  },
+  "all_findings": [
+    {
+      "check": "Strict-Transport-Security",
+      "status": "FAIL",
+      "severity": "HIGH",
+      "detail": "Memaksa browser selalu menggunakan HTTPS",
+      "recommendation": "Tambahkan header: Strict-Transport-Security: max-age=31536000; includeSubDomains"
+    },
+    {
+      "check": "Content-Security-Policy",
+      "status": "FAIL",
+      "severity": "HIGH",
+      "detail": "Mencegah XSS dan injeksi konten berbahaya",
+      "recommendation": "Tambahkan header CSP yang sesuai. Minimal: Content-Security-Policy: default-src 'self'"
+    },
+    {
+      "check": "X-Frame-Options",
+      "status": "FAIL",
+      "severity": "MEDIUM",
+      "detail": "Mencegah clickjacking via iframe",
+      "recommendation": "Tambahkan header: X-Frame-Options: DENY atau SAMEORIGIN"
+    },
+    {
+      "check": "X-Content-Type-Options",
+      "status": "FAIL",
+      "severity": "MEDIUM",
+      "detail": "Mencegah MIME-type sniffing",
+      "recommendation": "Tambahkan header: X-Content-Type-Options: nosniff"
+    },
+    {
+      "check": "X-XSS-Protection",
+      "status": "FAIL",
+      "severity": "LOW",
+      "detail": "Mengaktifkan filter XSS bawaan browser (legacy)",
+      "recommendation": "Tambahkan header: X-XSS-Protection: 1; mode=block (atau gunakan CSP sebagai pengganti)"
+    },
+    {
+      "check": "Referrer-Policy",
+      "status": "FAIL",
+      "severity": "LOW",
+      "detail": "Mengontrol informasi referrer yang dikirim browser",
+      "recommendation": "Tambahkan header: Referrer-Policy: strict-origin-when-cross-origin"
+    },
+    {
+      "check": "Permissions-Policy",
+      "status": "FAIL",
+      "severity": "LOW",
+      "detail": "Mengontrol akses fitur browser (kamera, mikrofon, geolokasi)",
+      "recommendation": "Tambahkan header: Permissions-Policy: geolocation=(), camera=(), microphone=()"
+    },
+    {
+      "check": "Server (Info Leak)",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Tidak ditemukan (bagus)",
+      "recommendation": "-"
+    },
+    {
+      "check": "X-Powered-By (Info Leak)",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Tidak ditemukan (bagus)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Cookie: TS01a2049c",
+      "status": "FAIL",
+      "severity": "MEDIUM",
+      "detail": "Cookie tidak aman: Missing 'Secure' flag, Missing 'HttpOnly' flag",
+      "recommendation": "Set flag Secure dan HttpOnly pada semua cookie sensitif"
+    },
+    {
+      "check": "Cookie: XSRF-TOKEN",
+      "status": "FAIL",
+      "severity": "MEDIUM",
+      "detail": "Cookie tidak aman: Missing 'Secure' flag, Missing 'HttpOnly' flag",
+      "recommendation": "Set flag Secure dan HttpOnly pada semua cookie sensitif"
+    },
+    {
+      "check": "Cookie: bpsdm_session",
+      "status": "FAIL",
+      "severity": "MEDIUM",
+      "detail": "Cookie tidak aman: Missing 'Secure' flag, Missing 'HttpOnly' flag",
+      "recommendation": "Set flag Secure dan HttpOnly pada semua cookie sensitif"
+    },
+    {
+      "check": "HTTP → HTTPS Redirect",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "HTTP redirect ke HTTPS (302)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Validitas Sertifikat SSL",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Sertifikat valid dan terpercaya",
+      "recommendation": "-"
+    },
+    {
+      "check": "Masa Berlaku Sertifikat",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Sertifikat berlaku 167 hari lagi (Nov  2 23:59:59 2026 GMT)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Versi TLS",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Server menggunakan TLSv1.3",
+      "recommendation": "-"
+    },
+    {
+      "check": "Cipher Strength",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Cipher: TLS_AES_128_GCM_SHA256 (128-bit)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Certificate Issuer",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Diterbitkan oleh: Sectigo Limited (Sectigo Public Server Authentication CA DV R36)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Domain Match (SAN)",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Domain 'bpsdm.kemenhub.go.id' tercantum di SAN sertifikat",
+      "recommendation": "-"
+    },
+    {
+      "check": "File: /wp-config.php.bak",
+      "status": "FAIL",
+      "severity": "CRITICAL",
+      "category": "CMS Config",
+      "detail": "EXPOSED! Backup WordPress config — bisa di-download sebagai plain text (HTTP 200, 246 bytes)",
+      "recommendation": "Hapus semua file backup dari server production",
+      "result_type": "exposed"
+    },
+    {
+      "check": "File: /web.config",
+      "status": "FAIL",
+      "severity": "HIGH",
+      "category": "Server Config",
+      "detail": "EXPOSED! File konfigurasi IIS exposed (HTTP 200, 246 bytes)",
+      "recommendation": "Batasi akses ke web.config",
+      "result_type": "exposed"
+    },
+    {
+      "check": "File: /.htaccess",
+      "status": "FAIL",
+      "severity": "HIGH",
+      "category": "Server Config",
+      "detail": "EXPOSED! File konfigurasi Apache exposed — bisa berisi rewrite rules & auth config (HTTP 200, 603 bytes)",
+      "recommendation": "Konfigurasi web server agar tidak melayani file dot-files",
+      "result_type": "exposed"
+    },
+    {
+      "check": "File: /nginx.conf",
+      "status": "FAIL",
+      "severity": "HIGH",
+      "category": "Server Config",
+      "detail": "EXPOSED! Konfigurasi Nginx exposed (HTTP 200, 246 bytes)",
+      "recommendation": "Jangan simpan file konfigurasi di document root",
+      "result_type": "exposed"
+    },
+    {
+      "check": "File: /admin/",
+      "status": "FAIL",
+      "severity": "MEDIUM",
+      "category": "Admin Panel",
+      "detail": "EXPOSED! Admin panel terdeteksi — perlu verifikasi apakah dilindungi autentikasi (HTTP 200, 7228 bytes)",
+      "recommendation": "Pastikan admin panel dilindungi autentikasi kuat + IP allowlist",
+      "result_type": "exposed"
+    },
+    {
+      "check": "File: /access.log",
+      "status": "FAIL",
+      "severity": "MEDIUM",
+      "category": "Log Files",
+      "detail": "EXPOSED! Access log exposed — berisi IP pengunjung & request history (HTTP 200, 246 bytes)",
+      "recommendation": "Pindahkan log ke luar document root",
+      "result_type": "exposed"
+    },
+    {
+      "check": "File: /debug.log",
+      "status": "FAIL",
+      "severity": "MEDIUM",
+      "category": "Log Files",
+      "detail": "EXPOSED! Debug log exposed (HTTP 200, 246 bytes)",
+      "recommendation": "Nonaktifkan debug mode & hapus log dari document root",
+      "result_type": "exposed"
+    },
+    {
+      "check": "File: /error.log",
+      "status": "FAIL",
+      "severity": "MEDIUM",
+      "category": "Log Files",
+      "detail": "EXPOSED! Error log exposed — bisa berisi path internal, stack trace, info sensitif (HTTP 200, 246 bytes)",
+      "recommendation": "Pindahkan log ke luar document root",
+      "result_type": "exposed"
+    },
+    {
+      "check": "CMS Detection",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Tidak ada CMS populer terdeteksi (custom-built atau non-standard CMS)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Advanced SQL Injection Scan",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Tidak ditemukan SQLi (22 tests: 8 error-based, 8 boolean-based, 6 time-based)",
+      "recommendation": "-"
+    },
+    {
+      "check": "XSS (Cross-Site Scripting) Scan",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Tidak ditemukan kerentanan XSS (6 tests)",
+      "recommendation": "-"
+    },
+    {
+      "check": "CSRF Form Analysis",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Tidak ada form ditemukan di halaman ini",
+      "recommendation": "-"
+    },
+    {
+      "check": "Port 80/HTTP",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Port 80 (HTTP) terbuka — web server (normal)",
+      "recommendation": "-"
+    },
+    {
+      "check": "Port 443/HTTPS",
+      "status": "PASS",
+      "severity": "INFO",
+      "detail": "Port 443 (HTTPS) terbuka — web server (normal)",
+      "recommendation": "-"
+    }
+  ],
+  "statistics": {
+    "total_checks": 33,
+    "total_passed": 42,
+    "total_failed": 18
+  }
+}
