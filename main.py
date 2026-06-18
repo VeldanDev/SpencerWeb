@@ -150,7 +150,7 @@ def recs(all_f):
         print()
 
 def save(target, modules, gi, all_f, elapsed, crawl_info):
-    domain = urlparse(target).netloc.replace(".", "_")
+    domain = urlparse(target).netloc.replace(".", "_").replace(":", "_")
     ts = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
     rdir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "reports")
     os.makedirs(rdir, exist_ok=True)

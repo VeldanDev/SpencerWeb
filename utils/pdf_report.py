@@ -63,7 +63,7 @@ def generate_pdf_report(json_report: dict, output_path: str = None) -> str:
     # Determine output path
     if not output_path:
         target = json_report["scan_info"]["target"]
-        domain = urlparse(target).netloc.replace(".", "_")
+        domain = urlparse(target).netloc.replace(".", "_").replace(":", "_")
         ts = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
         rdir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "reports")
         os.makedirs(rdir, exist_ok=True)
