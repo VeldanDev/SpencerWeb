@@ -114,6 +114,22 @@ DANGEROUS_PORTS = {
 }
 
 
+# ── Port Canary Check: deteksi target di belakang proxy/tunnel/CDN ──
+# Pola hostname tunnel/proxy yang umum (sifatnya hint; heuristik rasio di bawah
+# bersifat umum dan tetap bekerja untuk proxy yang tidak ada di daftar ini).
+TUNNEL_HOST_PATTERNS = (
+    "ngrok-free.dev", "ngrok-free.app", "ngrok.io", "ngrok.app", "ngrok.dev",
+    "trycloudflare.com", "cfargotunnel.com", "loca.lt", "localtunnel.me",
+    "serveo.net", "lhr.life", "pagekite.me", "telebit.io",
+)
+# Jika proporsi port "open" >= ambang ini (DAN jumlah absolutnya cukup banyak),
+# target hampir pasti di belakang proxy/tunnel/load-balancer — host nyata tidak
+# pernah membuka sebanyak ini. Hasil port lalu dianggap tidak andal & dikeluarkan
+# dari penilaian skor (analog dengan filter soft-404 pada Canary Check).
+PORT_OPEN_RATIO_THRESHOLD = 0.30   # 30% dari total port yang discan
+PORT_OPEN_ABS_THRESHOLD = 15       # floor jumlah absolut sebelum dicurigai
+
+
 def scan_ports_advanced(url: str, mode: str = "common", timeout: int = 2,
                         max_workers: int = 50, port_range: tuple = None) -> dict:
     """
@@ -163,7 +179,34 @@ def scan_ports_advanced(url: str, mode: str = "common", timeout: int = 2,
     else:  # common
         ports_to_scan = TOP_100_PORTS
         scan_label = "Common scan (top 100)"
-    
+
+    # ── FIX FALSE POSITIVE: target localhost / loopback ──────────────
+    # Men-scan localhost/127.0.0.1 = men-scan MESIN LOKAL penguji, BUKAN server
+    # target jarak jauh. Port seperti 135, 445 (SMB), 5353 adalah milik OS host,
+    # bukan aplikasi web yang diuji. Dulu dilaporkan sebagai temuan → false
+    # positive. Loopback di-skip dari penilaian.
+    if hostname.lower() in ("localhost", "127.0.0.1", "::1", "0.0.0.0") or ip.startswith("127."):
+        return {
+            "target": url, "hostname": hostname, "ip": ip, "mode": mode,
+            "scan_label": scan_label,
+            "findings": [{
+                "check": "Port Reconnaissance",
+                "status": "PASS",          # INFO → tidak mengurangi skor
+                "severity": "INFO",
+                "detail": ("Target adalah localhost/loopback. Port scan pada loopback "
+                           "mencerminkan layanan MESIN LOKAL (mis. 135, 445/SMB, 5353), "
+                           "BUKAN milik aplikasi web target. Hasil di-skip dari penilaian "
+                           "untuk menghindari false positive."),
+                "recommendation": ("Untuk audit port yang valid, scan host/IP publik tempat "
+                                   "aplikasi di-deploy — bukan localhost."),
+            }],
+            "open_ports": [],
+            "ports_scanned": 0,
+            "unreliable": True,
+            "unreliable_reason": "target localhost/loopback",
+            "passed": 1, "failed": 0, "total_checks": 1,
+        }
+
     def check_port(port: int) -> dict:
         try:
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -186,6 +229,47 @@ def scan_ports_advanced(url: str, mode: str = "common", timeout: int = 2,
     
     open_ports.sort(key=lambda x: x["port"])
     
+    # ──────────────────────────────────────────────────────────────
+    # PORT CANARY CHECK — deteksi target di belakang proxy/tunnel/CDN.
+    # Edge proxy (ngrok, Cloudflare Tunnel, load balancer, dsb.) menerima
+    # koneksi TCP di hampir semua port, sehingga connect_ex membalas "open"
+    # untuk ratusan port yang sebenarnya BUKAN milik server asli (false positive).
+    # Heuristik utama: proporsi port open yang mustahil tinggi untuk host nyata.
+    # ──────────────────────────────────────────────────────────────
+    scanned = len(ports_to_scan)
+    open_count = len(open_ports)
+    open_ratio = (open_count / scanned) if scanned else 0.0
+    host_is_tunnel = any(pat in hostname.lower() for pat in TUNNEL_HOST_PATTERNS)
+    ratio_implausible = (open_count >= PORT_OPEN_ABS_THRESHOLD
+                         and open_ratio >= PORT_OPEN_RATIO_THRESHOLD)
+
+    if host_is_tunnel or ratio_implausible:
+        reason = ("hostname terindikasi tunnel/proxy"
+                  if host_is_tunnel
+                  else f"{open_count}/{scanned} port ({open_ratio:.0%}) terdeteksi terbuka")
+        findings.append({
+            "check": "Port Reconnaissance",
+            "status": "PASS",          # severity INFO → tidak ikut mengurangi skor
+            "severity": "INFO",
+            "detail": (f"Hasil port scan TIDAK ANDAL dan di-skip dari penilaian. "
+                       f"Target kemungkinan berada di belakang proxy/tunnel/CDN ({reason}). "
+                       f"Edge proxy menerima koneksi TCP di hampir semua port, sehingga port "
+                       f"yang dilaporkan terbuka kemungkinan besar bukan milik server asli."),
+            "recommendation": ("Untuk hasil port scan yang akurat, scan langsung IP/host asli "
+                               "target (bukan via tunnel/CDN), atau lewati modul ini."),
+        })
+        return {
+            "target": url, "hostname": hostname, "ip": ip, "mode": mode,
+            "scan_label": scan_label,
+            "findings": findings,
+            "open_ports": [],                  # jangan laporkan port palsu
+            "ports_scanned": scanned,
+            "open_detected_raw": open_count,   # info mentah untuk transparansi
+            "unreliable": True,
+            "unreliable_reason": reason,
+            "passed": 1, "failed": 0, "total_checks": 1,
+        }
+
     # Generate findings
     for p in open_ports:
         port = p["port"]

@@ -120,6 +120,24 @@ Otomatis generate setelah scan, atau via API. PDF berisi:
 
 File output: `reports/spencer_{domain}_{timestamp}.pdf`
 
+### Unduh Hasil PDF (Dashboard)
+
+Setiap laporan di dashboard punya tombol **"Unduh PDF"** (di daftar laporan)
+dan **"Unduh Hasil (PDF)"** (di halaman detail laporan).
+
+- Bila PDF untuk laporan tersebut sudah pernah di-generate (`reports/spencer_{domain}_{timestamp}.pdf`),
+  file langsung dikirim.
+- Bila belum ada, server membuatnya on-demand lewat `tools/make_pdf.py` (memanggil
+  `generate_pdf_report()` yang sama seperti CLI), lalu mengirim hasilnya.
+
+Endpoint API: `GET /api/reports/:filename/pdf` (`:filename` = nama file JSON,
+mis. `spencer_v2_contoh_com_20260101_120000.json`).
+
+Server otomatis memilih interpreter Python yang tepat: `venv/Scripts/python.exe`
+bila ada dan reportlab terpasang di sana, kalau tidak jatuh ke Python global.
+Bila reportlab tidak terpasang di manapun, endpoint mengembalikan `501` dengan
+pesan galat berbahasa Indonesia.
+
 ---
 
 ## ⭐ Yang Baru di v2.0

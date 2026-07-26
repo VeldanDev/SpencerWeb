@@ -10,6 +10,8 @@ Tidak menggunakan database CVE eksternal — fingerprinting via:
 """
 
 import re
+import random
+import string
 import requests
 from urllib.parse import urljoin
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -214,25 +216,60 @@ def scan_wordpress(url: str, timeout: int = 8, max_workers: int = 8) -> dict:
 
 
 def _is_wordpress(url: str, timeout: int) -> bool:
-    """Cek apakah target adalah WordPress."""
-    indicators = ["/wp-login.php", "/wp-content/", "/wp-includes/", "/wp-admin/"]
-    for path in indicators:
-        try:
-            r = requests.head(urljoin(url, path), timeout=timeout, headers=HEADERS,
-                            allow_redirects=False)
-            if r.status_code in (200, 301, 302, 403):
-                return True
-        except Exception:
-            continue
-    
-    # Cek meta generator
+    """Cek apakah target benar-benar WordPress.
+
+    FIX FALSE POSITIVE: versi lama menganggap target = WordPress hanya karena
+    /wp-login.php membalas 200/301/302/403. SPA / server catch-all membalas 200
+    untuk SEMUA path → terdeteksi WordPress secara keliru, lalu seluruh modul WP
+    (XML-RPC, readme, dll.) ikut memunculkan false positive.
+
+    Sekarang: butuh fingerprint WordPress NYATA, dan indikator berbasis-path
+    hanya dipercaya bila server BUKAN soft-200 (catch-all).
+    """
+    # 1) Deteksi server soft-200 (membalas 200 untuk path acak yang pasti tak ada)
+    soft_200 = False
+    try:
+        token = "spencerweb-wp-canary-" + "".join(random.choices(string.ascii_lowercase, k=12))
+        rc = requests.get(urljoin(url, "/" + token), timeout=timeout, headers=HEADERS,
+                          allow_redirects=True)
+        if rc.status_code == 200:
+            soft_200 = True
+    except Exception:
+        pass
+
+    # 2) Fingerprint kuat: body homepage mengandung penanda WordPress nyata
     try:
         r = requests.get(url, timeout=timeout, headers=HEADERS, allow_redirects=True)
-        if "wordpress" in r.text.lower():
+        body = r.text.lower()
+        if ("wp-content" in body or "wp-includes" in body
+                or 'content="wordpress' in body or "/wp-json/" in body):
             return True
     except Exception:
         pass
-    
+
+    # 3) Fingerprint kuat: /wp-json/ mengembalikan JSON khas WordPress
+    try:
+        r = requests.get(urljoin(url, "/wp-json/"), timeout=timeout, headers=HEADERS,
+                         allow_redirects=True)
+        if r.status_code == 200 and ("wp/v2" in r.text.lower() or '"namespace"' in r.text.lower()):
+            return True
+    except Exception:
+        pass
+
+    # 4) Fallback berbasis-path — HANYA valid bila server BUKAN soft-200
+    if not soft_200:
+        try:
+            r = requests.get(urljoin(url, "/wp-login.php"), timeout=timeout, headers=HEADERS,
+                             allow_redirects=False)
+            if r.status_code == 200 and any(k in r.text.lower()
+                                            for k in ("user_login", "wp-submit", "loginform")):
+                return True
+            loc = r.headers.get("location", "").lower()
+            if r.status_code in (301, 302) and "wp-login" in loc:
+                return True
+        except Exception:
+            pass
+
     return False
 
 

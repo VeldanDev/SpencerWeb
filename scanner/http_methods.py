@@ -8,6 +8,8 @@ PUT/DELETE bisa digunakan untuk modifikasi file.
 """
 
 import requests
+import random
+import string
 from urllib.parse import urlparse
 from utils.crawler import HEADERS
 
@@ -54,6 +56,12 @@ def scan_http_methods(url: str, all_urls: list = None, timeout: int = 8) -> dict
 
     all_urls = all_urls or [url]
     test_urls = all_urls[:5]
+
+    # === FIX FALSE POSITIVE: deteksi server soft-200 (SPA / catch-all) ===
+    # Banyak SPA/framework membalas HTTP 200 untuk SEMUA path & method, termasuk
+    # PUT/DELETE, tanpa benar-benar mengeksekusinya. Pada server seperti ini,
+    # status 200 BUKAN bukti method aktif. Dideteksi sekali via path acak.
+    soft_200 = _is_soft_200(url, timeout)
 
     # Step 1: OPTIONS request untuk lihat allowed methods
     for page_url in test_urls[:2]:
@@ -104,19 +112,40 @@ def scan_http_methods(url: str, all_urls: list = None, timeout: int = 8) -> dict
                             })
                         break
 
-                    # PUT/DELETE: check if actually accepted (not just redirected to login)
+                    # PUT/DELETE: 200 saja BUKAN bukti. Verifikasi efek nyata.
                     elif method in ("PUT", "DELETE") and resp.status_code in (200, 201, 204):
-                        failed += 1
+                        verified = _verify_put_write(page_url, timeout) if method == "PUT" else False
+                        if verified:
+                            # Terbukti menulis file → finding NYATA, valid.
+                            failed += 1
+                            findings.append({
+                                "check": f"HTTP Method: {method}",
+                                "status": "FAIL",
+                                "severity": method_info["severity"],
+                                "detail": f"{method} TERVERIFIKASI dapat menulis file ke server "
+                                          f"(canary write+read berhasil) — {method_info['risk']}",
+                                "recommendation": method_info["recommendation"]
+                            })
+                            break
+                        if soft_200:
+                            # Server membalas 2xx untuk semua method (SPA/catch-all).
+                            # 200 untuk PUT/DELETE di sini = false positive → diabaikan.
+                            accepted = False
+                            break
+                        # Bukan catch-all, tapi efek nyata tidak terverifikasi.
                         findings.append({
                             "check": f"HTTP Method: {method}",
-                            "status": "FAIL",
-                            "severity": method_info["severity"],
-                            "detail": f"{method} method diterima server (HTTP {resp.status_code}) — {method_info['risk']}",
-                            "recommendation": method_info["recommendation"]
+                            "status": "INFO",
+                            "severity": "LOW",
+                            "detail": f"{method} mengembalikan HTTP {resp.status_code}, tetapi efek "
+                                      f"nyata (penulisan/penghapusan) TIDAK terverifikasi. Perlu "
+                                      f"verifikasi manual sebelum dianggap kerentanan.",
+                            "recommendation": f"Verifikasi apakah {method} benar-benar memodifikasi "
+                                              f"resource. Jika tidak diperlukan, nonaktifkan."
                         })
                         break
 
-                    elif method == "CONNECT" and resp.status_code == 200:
+                    elif method == "CONNECT" and resp.status_code == 200 and not soft_200:
                         failed += 1
                         findings.append({
                             "check": f"HTTP Method: {method}",
@@ -150,3 +179,36 @@ def scan_http_methods(url: str, all_urls: list = None, timeout: int = 8) -> dict
         "failed": failed,
         "total_checks": max(passed + failed, 1)
     }
+
+
+def _is_soft_200(url: str, timeout: int = 8) -> bool:
+    """FIX FALSE POSITIVE: cek apakah server membalas 200 untuk path acak yang
+    pasti tidak ada (SPA / catch-all soft-200). Jika ya, status 200 tidak bisa
+    dijadikan bukti apa pun."""
+    try:
+        parsed = urlparse(url)
+        token = "spencerweb-404-" + "".join(random.choices(string.ascii_lowercase, k=12))
+        canary = f"{parsed.scheme}://{parsed.netloc}/{token}"
+        r = requests.get(canary, timeout=timeout, headers=HEADERS, allow_redirects=True)
+        return r.status_code == 200
+    except Exception:
+        return False
+
+
+def _verify_put_write(page_url: str, timeout: int = 8) -> bool:
+    """FIX FALSE POSITIVE: verifikasi PUT benar-benar menulis resource.
+    PUT body unik ke path canary, lalu GET kembali. True HANYA jika body unik
+    muncul lagi (bukti penulisan nyata). Canary bersifat tidak berbahaya."""
+    try:
+        parsed = urlparse(page_url)
+        token = "spencerweb-put-" + "".join(random.choices(string.ascii_letters + string.digits, k=16))
+        canary_url = f"{parsed.scheme}://{parsed.netloc}/{token}.txt"
+        body = "spencerweb-canary-" + token
+        put = requests.put(canary_url, data=body, timeout=timeout, headers=HEADERS,
+                           allow_redirects=False)
+        if put.status_code not in (200, 201, 204):
+            return False
+        got = requests.get(canary_url, timeout=timeout, headers=HEADERS, allow_redirects=False)
+        return got.status_code == 200 and body in got.text
+    except Exception:
+        return False

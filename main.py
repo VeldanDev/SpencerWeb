@@ -54,7 +54,7 @@ from scanner.tech_fingerprint import scan_tech_fingerprint
 from scanner.security_txt import scan_security_files
 from scanner.waf_detect import scan_waf
 
-from utils.scoring import calculate_grade, grade_color, RESET_COLOR
+from utils.scoring import calculate_grade, grade_color, RESET_COLOR, dedup_findings
 
 # Optional: PDF report generation (graceful if reportlab not installed)
 try:
@@ -119,6 +119,7 @@ def summ(p, f, t):
 
 def grade_display(all_f, modules_with_error):
     fails = [f for f in all_f if f.get("status") == "FAIL"]
+    fails = dedup_findings(fails)  # FIX: dedup root-cause sebelum scoring
     gi = calculate_grade(fails)
     
     # FIX: jika banyak module error, jangan kasih Grade A
@@ -137,6 +138,7 @@ def grade_display(all_f, modules_with_error):
 
 def recs(all_f):
     fails = [f for f in all_f if f.get("status") == "FAIL"]
+    fails = dedup_findings(fails)  # FIX: rekomendasi ikut deduped, konsisten dgn grade
     if not fails:
         print(f"\n  \033[92m✅ Semua pengecekan lolos!\033[0m\n")
         return
@@ -179,7 +181,9 @@ def save(target, modules, gi, all_f, elapsed, crawl_info):
             }
             for name, d in modules.items()
         },
-        "all_findings": all_f,
+        "all_findings": ([f for f in all_f if f.get("status") != "FAIL"]
+                         + dedup_findings([f for f in all_f if f.get("status") == "FAIL"])),
+        "all_findings_raw": all_f,
         "statistics": {
             "total_checks": sum(m.get("total_checks", 0) for m in modules.values()),
             "total_passed": sum(m.get("passed", 0) for m in modules.values()),

@@ -15,7 +15,7 @@
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
-const { spawn } = require('child_process');
+const { spawn, spawnSync, execFile } = require('child_process');
 const http = require('http');
 const WebSocket = require('ws');
 
@@ -25,6 +25,36 @@ const PORT = process.env.PORT || 3000;
 // Path ke folder reports (Python scanner output)
 const REPORTS_DIR = path.join(__dirname, '..', 'reports');
 const PROJECT_ROOT = path.join(__dirname, '..');
+const MAKE_PDF_SCRIPT = path.join(PROJECT_ROOT, 'tools', 'make_pdf.py');
+
+// ─── Pilih interpreter Python untuk generate PDF ──────
+// Prioritaskan venv (bila ada DAN reportlab terpasang di sana),
+// fallback ke Python global. reportlab belum tentu ada di venv.
+function hasReportlab(pythonExec) {
+    try {
+        const r = spawnSync(pythonExec, ['-c', 'import reportlab'], { encoding: 'utf-8' });
+        return r.status === 0;
+    } catch (e) {
+        return false;
+    }
+}
+
+function resolvePdfPython() {
+    const venvPython = process.platform === 'win32'
+        ? path.join(PROJECT_ROOT, 'venv', 'Scripts', 'python.exe')
+        : path.join(PROJECT_ROOT, 'venv', 'bin', 'python');
+
+    if (fs.existsSync(venvPython) && hasReportlab(venvPython)) {
+        return venvPython;
+    }
+    if (hasReportlab('python')) {
+        return 'python';
+    }
+    return null; // reportlab tidak ditemukan di interpreter manapun
+}
+
+const PDF_PYTHON = resolvePdfPython();
+console.log(`[PDF] Python untuk generate PDF: ${PDF_PYTHON || 'TIDAK TERSEDIA (reportlab belum terpasang)'}`);
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -102,6 +132,67 @@ app.get('/api/reports/:filename', (req, res) => {
     } catch (e) {
         res.status(500).json({ error: e.message });
     }
+});
+
+// Unduh laporan sebagai PDF — generate on-demand bila PDF belum ada
+app.get('/api/reports/:filename/pdf', (req, res) => {
+    const safeName = path.basename(req.params.filename);
+    const jsonPath = path.join(REPORTS_DIR, safeName);
+
+    // Security: cegah path traversal
+    if (!jsonPath.startsWith(REPORTS_DIR) || !safeName.toLowerCase().endsWith('.json')) {
+        return res.status(403).json({ error: 'Akses ditolak' });
+    }
+
+    if (!fs.existsSync(jsonPath)) {
+        return res.status(404).json({ error: 'Laporan tidak ditemukan' });
+    }
+
+    // Petakan nama JSON -> PDF sesuai pola penamaan reports/:
+    //   spencer_v2_{domain}_{timestamp}.json -> spencer_{domain}_{timestamp}.pdf
+    const pdfName = safeName.startsWith('spencer_v2_')
+        ? 'spencer_' + safeName.slice('spencer_v2_'.length).replace(/\.json$/i, '.pdf')
+        : safeName.replace(/\.json$/i, '.pdf');
+    const pdfPath = path.join(REPORTS_DIR, pdfName);
+
+    if (!pdfPath.startsWith(REPORTS_DIR)) {
+        return res.status(403).json({ error: 'Akses ditolak' });
+    }
+
+    // Sudah ada -> langsung kirim
+    if (fs.existsSync(pdfPath)) {
+        return res.download(pdfPath, pdfName, (err) => {
+            if (err && !res.headersSent) {
+                res.status(500).json({ error: 'Gagal mengirim berkas PDF' });
+            }
+        });
+    }
+
+    // Belum ada -> generate on-demand via tools/make_pdf.py
+    if (!PDF_PYTHON) {
+        return res.status(501).json({ error: 'reportlab tidak terpasang di server. Jalankan: pip install reportlab' });
+    }
+
+    execFile(PDF_PYTHON, [MAKE_PDF_SCRIPT, jsonPath], { cwd: PROJECT_ROOT }, (err, stdout, stderr) => {
+        if (err) {
+            if (err.code === 2) {
+                return res.status(501).json({ error: 'reportlab tidak terpasang di server. Jalankan: pip install reportlab' });
+            }
+            console.error('[PDF] Gagal generate:', (stderr || err.message).trim());
+            return res.status(500).json({ error: 'Gagal membuat PDF: ' + (stderr || err.message).trim() });
+        }
+
+        const outPath = stdout.trim().split('\n').pop().trim();
+        if (!outPath || !fs.existsSync(outPath)) {
+            return res.status(500).json({ error: 'PDF gagal dibuat' });
+        }
+
+        res.download(outPath, path.basename(outPath), (dlErr) => {
+            if (dlErr && !res.headersSent) {
+                res.status(500).json({ error: 'Gagal mengirim berkas PDF' });
+            }
+        });
+    });
 });
 
 // Delete report

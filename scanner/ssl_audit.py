@@ -39,6 +39,38 @@ def audit_ssl(url: str, timeout: int = 10) -> dict:
     failed = 0
     cert_info = {}
 
+    # === FIX FALSE POSITIVE: target HTTP tanpa TLS ===
+    # Jika target diakses via http:// (mis. aplikasi lokal / dev server di port
+    # non-TLS), memaksa TLS handshake pada port HTTP akan gagal dengan
+    # "WRONG_VERSION_NUMBER" dan SEBELUMNYA dilaporkan CRITICAL secara keliru.
+    # Itu false positive: port HTTP murni memang tidak bicara TLS.
+    if parsed.scheme == "http":
+        if _tls_handshake_ok(hostname, 443, timeout):
+            # Host ternyata menyediakan HTTPS di 443 → audit sertifikat di sana
+            # (hasil valid & relevan untuk produksi).
+            port = 443
+        else:
+            # Tidak ada TLS sama sekali → bukan CRITICAL, ini info/LOW yang jujur.
+            return {
+                "target": url,
+                "hostname": hostname,
+                "findings": [{
+                    "check": "Ketersediaan HTTPS/TLS",
+                    "status": "INFO",
+                    "severity": "LOW",
+                    "detail": ("Target diakses via HTTP dan tidak menyediakan HTTPS/TLS "
+                               "pada port 443. Audit sertifikat SSL tidak berlaku untuk "
+                               "endpoint HTTP murni."),
+                    "recommendation": ("Untuk lingkungan produksi, aktifkan HTTPS "
+                                       "(mis. sertifikat gratis Let's Encrypt). Untuk dev "
+                                       "server lokal, kondisi ini wajar.")
+                }],
+                "cert_info": {},
+                "passed": 0,
+                "failed": 0,
+                "total_checks": 0
+            }
+
     # === CHECK 1: Koneksi SSL & Sertifikat ===
     try:
         context = ssl.create_default_context()
@@ -314,6 +346,20 @@ def audit_ssl(url: str, timeout: int = 10) -> dict:
         "failed": failed,
         "total_checks": passed + failed
     }
+
+
+def _tls_handshake_ok(hostname: str, port: int, timeout: int) -> bool:
+    """Cek apakah host benar-benar menerima TLS handshake di port tertentu.
+    Dipakai untuk membedakan target HTTP murni vs host yang punya HTTPS."""
+    try:
+        ctx = ssl.create_default_context()
+        ctx.check_hostname = False
+        ctx.verify_mode = ssl.CERT_NONE
+        with socket.create_connection((hostname, port), timeout=timeout) as s:
+            with ctx.wrap_socket(s, server_hostname=hostname):
+                return True
+    except Exception:
+        return False
 
 
 def _match_domain(hostname: str, pattern: str) -> bool:

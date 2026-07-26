@@ -8,6 +8,8 @@ response patterns — TANPA menggunakan database CVE eksternal.
 """
 
 import re
+import random
+import string
 import requests
 from urllib.parse import urljoin
 from utils.crawler import HEADERS
@@ -114,8 +116,14 @@ def detect_cms(url: str, timeout: int = 10) -> dict:
                 detected_version = match.group(1)
             break
 
+    # === FIX FALSE POSITIVE: deteksi server soft-200 (SPA / catch-all) ===
+    # Server seperti ini membalas 200 untuk SEMUA path, sehingga fingerprinting
+    # berbasis status (/readme.html dll.) salah mendeteksi CMS. Path-based hanya
+    # dipercaya bila server BUKAN soft-200.
+    soft_200 = _cms_soft_200(url, timeout)
+
     # === STEP 2: Path fingerprinting (jika meta generator tidak ditemukan) ===
-    if not detected_cms:
+    if not detected_cms and not soft_200:
         for cms_name, sig in CMS_SIGNATURES.items():
             for path in sig["paths"]:
                 try:
@@ -222,7 +230,11 @@ def _check_version_exposure(url: str, cms: str, findings: list, timeout: int):
         try:
             r = requests.get(urljoin(url, path), timeout=timeout,
                            headers=HEADERS, allow_redirects=False)
-            if r.status_code == 200 and len(r.content) > 50:
+            # FIX FALSE POSITIVE: status 200 + ukuran > 50 saja TIDAK cukup —
+            # SPA/catch-all mengembalikan index.html (>50 byte) untuk path apa pun.
+            # Wajib: isi body benar-benar memuat nama CMS (bukti file asli).
+            if (r.status_code == 200 and len(r.content) > 50
+                    and cms.lower() in r.text.lower()):
                 findings.append({
                     "check": f"Info Disclosure: {path}",
                     "status": "FAIL",
@@ -233,6 +245,19 @@ def _check_version_exposure(url: str, cms: str, findings: list, timeout: int):
                 return
         except Exception:
             continue
+
+
+def _cms_soft_200(url: str, timeout: int = 10) -> bool:
+    """FIX FALSE POSITIVE: True bila server membalas 200 untuk path acak yang
+    pasti tidak ada (SPA / catch-all). Pada server seperti ini, deteksi CMS
+    berbasis status tidak dapat dipercaya."""
+    try:
+        token = "spencerweb-cms-canary-" + "".join(random.choices(string.ascii_lowercase, k=12))
+        r = requests.get(urljoin(url, "/" + token), timeout=timeout, headers=HEADERS,
+                         allow_redirects=True)
+        return r.status_code == 200
+    except Exception:
+        return False
 
 
 def _is_outdated(current: str, latest_major: str) -> bool:
